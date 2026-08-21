@@ -3,15 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Berke Özbey | Computer Engineering & iOS Developer</title>
+  <title>Berke Özbey | iOS & Software Developer</title>
   
   <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <!-- AOS (Animate On Scroll) -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <!-- Typed.js -->
+  <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -19,11 +26,8 @@
         extend: {
           colors: {
             brand: '#3b82f6',
-            darkBg: '#0b0f19',
-            cardBg: '#111827'
-          },
-          animation: {
-            'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            darkBg: '#05070e',
+            cardBg: '#0c101c'
           }
         }
       }
@@ -31,43 +35,106 @@
   </script>
 
   <style>
-    /* Özel parlama ve cam efektleri */
+    /* Preloader Ekranı */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      background-color: #05070e;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+    }
+
+    .preloader-logo {
+      width: 90px;
+      height: 90px;
+      animation: logoGlow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes logoGlow {
+      0% {
+        transform: scale(0.95);
+        filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.4));
+      }
+      100% {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.85));
+      }
+    }
+
+    /* 3D WebGL Canvas Katmanı */
+    #webgl-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Okunurluk Maskesi */
+    .hero-mask {
+      background: radial-gradient(circle at 15% 45%, rgba(5, 7, 14, 0.96) 0%, rgba(5, 7, 14, 0.75) 55%, rgba(5, 7, 14, 0) 100%);
+    }
+
+    .content-layer {
+      position: relative;
+      z-index: 10;
+    }
+
     .glass-card {
-      background: rgba(17, 24, 39, 0.6);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(12, 16, 28, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .glass-card:hover {
       transform: translateY(-4px);
-      border-color: rgba(59, 130, 246, 0.4);
-      box-shadow: 0 12px 30px -10px rgba(59, 130, 246, 0.2);
+      border-color: rgba(56, 189, 248, 0.45);
+      box-shadow: 0 20px 35px -15px rgba(56, 189, 248, 0.2);
     }
+
     .gradient-text {
       background: linear-gradient(135deg, #60a5fa 0%, #38bdf8 50%, #34d399 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    /* Typed.js imleç stili */
+
+    .type-container {
+      display: inline-block;
+      min-height: 1.25em;
+      vertical-align: bottom;
+    }
     .typed-cursor {
       color: #38bdf8;
       font-weight: 300;
     }
   </style>
 </head>
-<body class="bg-[#0b0f19] text-slate-100 font-sans antialiased selection:bg-blue-500 selection:text-white relative overflow-x-hidden">
+<body class="bg-[#05070e] text-slate-100 font-sans antialiased selection:bg-blue-500 selection:text-white relative overflow-x-hidden">
 
-  <!-- Arka Plan Dinamik Işık Efektleri -->
-  <div class="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-600/15 rounded-full blur-[120px] pointer-events-none animate-pulse-slow"></div>
-  <div class="fixed bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-teal-500/10 rounded-full blur-[140px] pointer-events-none"></div>
+  <!-- Preloader -->
+  <div id="preloader">
+    <img src="logo.png" alt="BRK Logo" class="preloader-logo mb-6 object-contain">
+    <div class="w-36 h-1 bg-slate-800 rounded-full overflow-hidden">
+      <div id="loading-bar" class="w-0 h-full bg-gradient-to-r from-blue-500 to-teal-400 rounded-full transition-all duration-700"></div>
+    </div>
+  </div>
+
+  <!-- 3D Canvas -->
+  <canvas id="webgl-canvas"></canvas>
 
   <!-- Navbar -->
-  <nav class="fixed top-0 left-0 w-full bg-[#0b0f19]/70 backdrop-blur-xl border-b border-slate-800/80 z-50 transition-all duration-300">
+  <nav class="fixed top-0 left-0 w-full bg-[#05070e]/80 backdrop-blur-xl border-b border-slate-800/80 z-50">
     <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-      <a href="#" class="font-bold text-xl tracking-tight text-white hover:text-blue-400 transition flex items-center gap-2">
-        <span class="w-2.5 h-2.5 rounded-full bg-blue-500 animate-ping"></span>
-        Berke Özbey<span class="text-blue-500">.</span>
+      <a href="#" class="flex items-center gap-3 group">
+        <img src="logo.png" alt="Berke Özbey Logo" class="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110">
+        <span class="font-bold text-lg tracking-tight text-white group-hover:text-blue-400 transition">Berke Özbey<span class="text-blue-500">.</span></span>
       </a>
       <div class="flex items-center space-x-6 text-sm font-medium text-slate-300">
         <a href="#about" class="hover:text-blue-400 transition">Hakkımda</a>
@@ -78,148 +145,284 @@
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <header id="about" class="pt-36 pb-20 px-6 max-w-5xl mx-auto min-h-[85vh] flex flex-col justify-center">
-    <div class="max-w-3xl">
-      <div data-aos="fade-down" data-aos-duration="800" class="inline-flex items-center gap-2 px-3.5 py-1.5 mb-6 text-xs font-semibold tracking-wider text-blue-400 uppercase bg-blue-500/10 rounded-full border border-blue-500/20 shadow-inner">
-        <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
-        Computer Engineering Student
-      </div>
-      
-      <h1 data-aos="fade-up" data-aos-duration="1000" class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
-        Fikirleri modern, ölçeklenebilir <br class="hidden sm:block" />
-        <span id="typed-text" class="gradient-text"></span>
-      </h1>
-      
-      <p data-aos="fade-up" data-aos-duration="1200" class="text-lg text-slate-400 leading-relaxed mb-8 max-w-2xl">
-        Bilgisayar mühendisliği sürecindeki teorik altyapıyı pratik mühendislik disipliniyle birleştirerek iOS (Swift & Xcode) ve modern yazılım ekosisteminde kullanıcı odaklı çözümler üretiyorum.
-      </p>
-      
-      <div data-aos="fade-up" data-aos-duration="1400" class="flex flex-wrap gap-4">
-        <a href="https://medium.com/@berkeozbey" target="_blank" class="px-6 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-xl transition-all shadow-lg shadow-blue-600/30 hover:shadow-blue-500/50 hover:-translate-y-0.5 flex items-center gap-2.5">
-          <i class="fa-brands fa-medium text-lg"></i> Medium Yazılarım
-        </a>
-        <a href="https://www.linkedin.com/in/berkeözbey/" target="_blank" class="px-6 py-3.5 bg-slate-800/80 hover:bg-slate-700 text-slate-200 font-medium rounded-xl border border-slate-700/80 transition-all hover:-translate-y-0.5 flex items-center gap-2.5">
-          <i class="fa-brands fa-linkedin text-blue-400 text-lg"></i> LinkedIn
-        </a>
-        <a href="https://github.com/berkeozby" target="_blank" class="px-6 py-3.5 bg-slate-800/80 hover:bg-slate-700 text-slate-200 font-medium rounded-xl border border-slate-700/80 transition-all hover:-translate-y-0.5 flex items-center gap-2.5">
-          <i class="fa-brands fa-github text-lg"></i> GitHub
-        </a>
-      </div>
-    </div>
-  </header>
-
-  <!-- Skills / Odak Alanları -->
-  <section id="skills" class="py-20 px-6 max-w-5xl mx-auto border-t border-slate-800/80">
-    <div data-aos="fade-right" class="mb-10">
-      <h2 class="text-2xl sm:text-3xl font-bold text-white flex items-center gap-3">
-        <span class="text-blue-500">#</span> Odaklandığım Teknolojiler
-      </h2>
-      <p class="text-slate-400 text-sm mt-1">Geliştirme süreçlerimde aktif olarak kullandığım araç ve diller</p>
-    </div>
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-      <div data-aos="zoom-in-up" data-aos-delay="100" class="glass-card p-6 rounded-2xl group">
-        <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 text-2xl mb-4 group-hover:scale-110 group-hover:bg-blue-500 group-hover:text-white transition-all duration-300">
-          <i class="fa-brands fa-swift"></i>
+  <!-- İçerik Katmanı -->
+  <main class="content-layer">
+    <!-- Hero Section -->
+    <header id="about" class="pt-36 pb-24 px-6 max-w-5xl mx-auto min-h-screen flex flex-col justify-center hero-mask">
+      <div class="max-w-2xl">
+        <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+          Fikirleri modern ve ölçeklenebilir <br />
+          <span class="type-container"><span id="typed-text" class="gradient-text"></span></span>
+        </h1>
+        
+        <p class="text-lg text-slate-300 leading-relaxed mb-8 max-w-xl">
+          Teorik altyapıyı pratik mühendislik disipliniyle birleştirerek iOS (Swift & Xcode) ve modern yazılım ekosisteminde kullanıcı odaklı çözümler üretiyorum.
+        </p>
+        
+        <div class="flex flex-wrap gap-4">
+          <a href="https://medium.com/@berkeozbey" target="_blank" class="px-6 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-xl transition-all shadow-lg shadow-blue-600/30 hover:shadow-blue-500/50 hover:-translate-y-0.5 flex items-center gap-2.5">
+            <i class="fa-brands fa-medium text-lg"></i> Medium Yazılarım
+          </a>
+          <a href="https://www.linkedin.com/in/berkeözbey/" target="_blank" class="px-6 py-3.5 bg-slate-800/90 hover:bg-slate-700 text-slate-200 font-medium rounded-xl border border-slate-700 transition-all hover:-translate-y-0.5 flex items-center gap-2.5">
+            <i class="fa-brands fa-linkedin text-blue-400 text-lg"></i> LinkedIn
+          </a>
+          <a href="https://github.com/berkeozby" target="_blank" class="px-6 py-3.5 bg-slate-800/90 hover:bg-slate-700 text-slate-200 font-medium rounded-xl border border-slate-700 transition-all hover:-translate-y-0.5 flex items-center gap-2.5">
+            <i class="fa-brands fa-github text-lg"></i> GitHub
+          </a>
         </div>
-        <h3 class="font-semibold text-lg text-white">Swift & iOS</h3>
-        <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Xcode, UIKit, Auto Layout, MVC & MVVM mimarisi</p>
       </div>
+    </header>
 
-      <div data-aos="zoom-in-up" data-aos-delay="200" class="glass-card p-6 rounded-2xl group">
-        <div class="w-12 h-12 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-teal-400 text-2xl mb-4 group-hover:scale-110 group-hover:bg-teal-500 group-hover:text-white transition-all duration-300">
-          <i class="fa-solid fa-code"></i>
-        </div>
-        <h3 class="font-semibold text-lg text-white">C & C++</h3>
-        <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Veri Yapıları, Algoritmalar ve Düşük Seviye Programlama</p>
-      </div>
-
-      <div data-aos="zoom-in-up" data-aos-delay="300" class="glass-card p-6 rounded-2xl group">
-        <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-2xl mb-4 group-hover:scale-110 group-hover:bg-indigo-500 group-hover:text-white transition-all duration-300">
-          <i class="fa-brands fa-html5"></i>
-        </div>
-        <h3 class="font-semibold text-lg text-white">Web Teknolojileri</h3>
-        <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">HTML5, CSS3, Tailwind CSS, JavaScript temelleri</p>
-      </div>
-
-      <div data-aos="zoom-in-up" data-aos-delay="400" class="glass-card p-6 rounded-2xl group">
-        <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-2xl mb-4 group-hover:scale-110 group-hover:bg-cyan-500 group-hover:text-white transition-all duration-300">
-          <i class="fa-solid fa-microchip"></i>
-        </div>
-        <h3 class="font-semibold text-lg text-white">Gömülü Sistemler</h3>
-        <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">8051 Assembly, Keil uVision, Proteus Simülasyon</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Son Teknik Yazılar -->
-  <section id="articles" class="py-20 px-6 max-w-5xl mx-auto border-t border-slate-800/80">
-    <div data-aos="fade-right" class="flex justify-between items-end mb-10">
-      <div>
+    <!-- Skills / Odak Alanları -->
+    <section id="skills" class="py-24 px-6 max-w-5xl mx-auto">
+      <div class="mb-10">
         <h2 class="text-2xl sm:text-3xl font-bold text-white flex items-center gap-3">
-          <span class="text-blue-500">#</span> Son Teknik Yazılarım
+          <span class="text-blue-500">#</span> Odaklandığım Teknolojiler
         </h2>
-        <p class="text-slate-400 text-sm mt-1">Öğrendiklerimi ve mühendislik notlarımı paylaştığım yayınlar</p>
+        <p class="text-slate-400 text-sm mt-1">Geliştirme süreçlerimde aktif olarak kullandığım mimari ve araçlar</p>
       </div>
-      <a href="https://medium.com/@berkeozbey" target="_blank" class="text-sm font-semibold text-blue-400 hover:text-blue-300 transition flex items-center gap-1.5">
-        Tümünü Gör <i class="fa-solid fa-arrow-right text-xs"></i>
-      </a>
-    </div>
-    
-    <div data-aos="fade-up" data-aos-duration="1000" class="glass-card p-8 rounded-2xl border border-slate-700/60 hover:border-blue-500/50 group relative overflow-hidden">
-      <div class="flex items-center gap-3 mb-3">
-        <span class="px-2.5 py-1 text-[11px] font-bold text-blue-400 bg-blue-500/10 rounded-md border border-blue-500/20">MEDIUM</span>
-        <span class="text-xs text-slate-500"><i class="fa-regular fa-clock mr-1"></i> Okuma Notu</span>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="glass-card p-6 rounded-2xl group">
+          <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 text-2xl mb-4 group-hover:scale-110 group-hover:bg-blue-500 group-hover:text-white transition-all duration-300">
+            <i class="fa-brands fa-swift"></i>
+          </div>
+          <h3 class="font-semibold text-lg text-white">Swift & iOS</h3>
+          <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Xcode, UIKit, Auto Layout, MVC & MVVM mimarisi</p>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl group">
+          <div class="w-12 h-12 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-teal-400 text-2xl mb-4 group-hover:scale-110 group-hover:bg-teal-500 group-hover:text-white transition-all duration-300">
+            <i class="fa-solid fa-code"></i>
+          </div>
+          <h3 class="font-semibold text-lg text-white">C & C++</h3>
+          <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Veri Yapıları, Algoritmalar ve Düşük Seviye Programlama</p>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl group">
+          <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-2xl mb-4 group-hover:scale-110 group-hover:bg-indigo-500 group-hover:text-white transition-all duration-300">
+            <i class="fa-brands fa-html5"></i>
+          </div>
+          <h3 class="font-semibold text-lg text-white">Web Teknolojileri</h3>
+          <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">HTML5, CSS3, Tailwind CSS, Modern JavaScript</p>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl group">
+          <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-2xl mb-4 group-hover:scale-110 group-hover:bg-cyan-500 group-hover:text-white transition-all duration-300">
+            <i class="fa-solid fa-microchip"></i>
+          </div>
+          <h3 class="font-semibold text-lg text-white">Gömülü Sistemler</h3>
+          <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">8051 Assembly, Keil uVision, Proteus Simülasyon</p>
+        </div>
       </div>
-      <h3 class="text-xl sm:text-2xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">
-        <a href="https://medium.com/@berkeozbey/727a89bc70ac" target="_blank">
-          Apple Ekosistemi, Swift ve Xcode ile Mobil Geliştirmeye Giriş Notları
+    </section>
+
+    <!-- Son Teknik Yazılar -->
+    <section id="articles" class="py-24 px-6 max-w-5xl mx-auto">
+      <div class="flex justify-between items-end mb-10">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-bold text-white flex items-center gap-3">
+            <span class="text-blue-500">#</span> Son Teknik Yazılarım
+          </h2>
+          <p class="text-slate-400 text-sm mt-1">Geliştirme notlarımı ve mühendislik çıkarımlarımı paylaştığım içerikler</p>
+        </div>
+        <a href="https://medium.com/@berkeozbey" target="_blank" class="text-sm font-semibold text-blue-400 hover:text-blue-300 transition flex items-center gap-1.5">
+          Tümünü Gör <i class="fa-solid fa-arrow-right text-xs"></i>
         </a>
-      </h3>
-      <p class="text-slate-400 text-sm sm:text-base leading-relaxed mb-6">
-        Xcode geliştirme ortamı, Swift tip güvenliği, Auto Layout mimarisi ve test süreçlerinde karşılaşılan temel mühendislik pratikleri üzerine çıkarımlar.
-      </p>
-      <a href="https://medium.com/@berkeozbey/727a89bc70ac" target="_blank" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-400 hover:text-blue-300 transition">
-        Yazıyı Oku <i class="fa-solid fa-arrow-up-right-from-square text-xs group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
-      </a>
-    </div>
-  </section>
-
-  <!-- Footer / İletişim -->
-  <footer id="contact" class="py-14 border-t border-slate-800/80 bg-[#070a10]">
-    <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-6 text-sm text-slate-400">
-      <p>© 2026 Berke Özbey. Tüm hakları saklıdır.</p>
-      <div class="flex space-x-6 text-base">
-        <a href="https://medium.com/@berkeozbey" target="_blank" class="hover:text-blue-400 transition"><i class="fa-brands fa-medium"></i></a>
-        <a href="https://www.linkedin.com/in/berkeözbey/" target="_blank" class="hover:text-blue-400 transition"><i class="fa-brands fa-linkedin"></i></a>
-        <a href="https://github.com/berkeozby" target="_blank" class="hover:text-blue-400 transition"><i class="fa-brands fa-github"></i></a>
       </div>
-    </div>
-  </footer>
+      
+      <div class="glass-card p-8 rounded-2xl border border-slate-700/60 hover:border-blue-500/50 group relative overflow-hidden">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="px-2.5 py-1 text-[11px] font-bold text-blue-400 bg-blue-500/10 rounded-md border border-blue-500/20">MEDIUM</span>
+          <span class="text-xs text-slate-500"><i class="fa-regular fa-clock mr-1"></i> Okuma Notu</span>
+        </div>
+        <h3 class="text-xl sm:text-2xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">
+          <a href="https://medium.com/@berkeozbey/727a89bc70ac" target="_blank"[cite: 1]>
+            Apple Ekosistemi, Swift ve Xcode ile Mobil Geliştirmeye Giriş Notları[cite: 1]
+          </a>
+        </h3>
+        <p class="text-slate-400 text-sm sm:text-base leading-relaxed mb-6"[cite: 1]>
+          Xcode geliştirme ortamı, Swift tip güvenliği, Auto Layout mimarisi ve test süreçlerinde karşılaşılan temel mühendislik pratikleri üzerine çıkarımlar.[cite: 1]
+        </p>
+        <a href="https://medium.com/@berkeozbey/727a89bc70ac" target="_blank" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-400 hover:text-blue-300 transition"[cite: 1]>
+          Yazıyı Oku <i class="fa-solid fa-arrow-up-right-from-square text-xs group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+        </a>
+      </div>
+    </section>
 
-  <!-- Typed.js ve AOS Scriptleri -->
-  <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Footer / İletişim -->
+    <footer id="contact" class="py-16 border-t border-slate-800/80 bg-[#04060b]/90 backdrop-blur-md">
+      <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-6 text-sm text-slate-400">
+        <div class="flex items-center gap-2.5">
+          <img src="logo.png" alt="Logo" class="w-6 h-6 object-contain opacity-70">
+          <p>© 2026 Berke Özbey. Tüm hakları saklıdır.</p>
+        </div>
+        <div class="flex space-x-6 text-base">
+          <a href="https://medium.com/@berkeozbey" target="_blank" class="hover:text-blue-400 transition"><i class="fa-brands fa-medium"></i></a>
+          <a href="https://www.linkedin.com/in/berkeözbey/" target="_blank" class="hover:text-blue-400 transition"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="https://github.com/berkeozby" target="_blank" class="hover:text-blue-400 transition"><i class="fa-brands fa-github"></i></a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
   <script>
-    // Sayfa Kaydırma Animasyonlarını Başlat
-    AOS.init({
-      once: true,
-      duration: 800,
-      offset: 50
+    // Preloader Kontrolü
+    window.addEventListener('load', () => {
+      const loadBar = document.getElementById('loading-bar');
+      const preloader = document.getElementById('preloader');
+      loadBar.style.width = '100%';
+      setTimeout(() => {
+        preloader.style.opacity = '0';
+        preloader.style.visibility = 'hidden';
+      }, 600);
     });
 
-    // Başlık Yazma Animasyonu (Typed.js)
-    var typed = new Typed('#typed-text', {
+    // Typed.js
+    new Typed('#typed-text', {
       strings: [
-        'yazılımlara dönüştürüyorum.',
         'iOS uygulamalarına dönüştürüyorum.',
-        'çözümlere dönüştürüyorum.'
+        'yazılım sistemlerine dönüştürüyorum.',
+        'mühendislik çözümlerine dönüştürüyorum.'
       ],
-      typeSpeed: 50,
-      backSpeed: 30,
+      typeSpeed: 45,
+      backSpeed: 25,
       backDelay: 2000,
       loop: true
+    });
+
+    // GSAP ScrollTrigger Eklentisi
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Three.js Sahnesi
+    const canvas = document.getElementById('webgl-canvas');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(0, 0, 7.5);
+
+    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // Işıklar
+    const ambientLight = new THREE.AmbientLight(0x0f172a, 1.6);
+    scene.add(ambientLight);
+
+    const sunLight = new THREE.DirectionalLight(0x38bdf8, 3.5);
+    sunLight.position.set(-6, 4, 5);
+    scene.add(sunLight);
+
+    const rimLight = new THREE.PointLight(0x3b82f6, 2, 25);
+    rimLight.position.set(5, -4, -3);
+    scene.add(rimLight);
+
+    // Gezegen Grubu
+    const planetGroup = new THREE.Group();
+    scene.add(planetGroup);
+
+    // 1. Gölgeli Gezegen Gövdesi
+    const planetGeo = new THREE.SphereGeometry(1.45, 64, 64);
+    const planetMat = new THREE.MeshStandardMaterial({
+      color: 0x091428,
+      roughness: 0.7,
+      metalness: 0.25,
+      wireframe: false
+    });
+    const planet = new THREE.Mesh(planetGeo, planetMat);
+    planetGroup.add(planet);
+
+    // 2. Siber Atmosfer Katmanı
+    const atmoGeo = new THREE.SphereGeometry(1.47, 32, 32);
+    const atmoMat = new THREE.MeshBasicMaterial({
+      color: 0x38bdf8,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.15
+    });
+    const atmo = new THREE.Mesh(atmoGeo, atmoMat);
+    planetGroup.add(atmo);
+
+    // 3. Parçacıklı Halka
+    const ringParticlesCount = 600;
+    const ringGeo = new THREE.BufferGeometry();
+    const ringPositions = new Float32Array(ringParticlesCount * 3);
+
+    for (let i = 0; i < ringParticlesCount; i++) {
+      const radius = 1.9 + Math.random() * 0.7;
+      const angle = Math.random() * Math.PI * 2;
+      ringPositions[i * 3] = Math.cos(angle) * radius;
+      ringPositions[i * 3 + 1] = (Math.random() - 0.5) * 0.08;
+      ringPositions[i * 3 + 2] = Math.sin(angle) * radius;
+    }
+
+    ringGeo.setAttribute('position', new THREE.BufferAttribute(ringPositions, 3));
+    const ringMat = new THREE.PointsMaterial({
+      size: 0.022,
+      color: 0x60a5fa,
+      transparent: true,
+      opacity: 0.75
+    });
+    const particleRing = new THREE.Points(ringGeo, ringMat);
+    particleRing.rotation.x = 0.45;
+    particleRing.rotation.z = -0.2;
+    planetGroup.add(particleRing);
+
+    // 4. Yıldızlar
+    const starsCount = 200;
+    const starGeo = new THREE.BufferGeometry();
+    const starPos = new Float32Array(starsCount * 3);
+    for(let i = 0; i < starsCount * 3; i++) {
+      starPos[i] = (Math.random() - 0.5) * 16;
+    }
+    starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+    const starMat = new THREE.PointsMaterial({ size: 0.018, color: 0x94a3b8, transparent: true, opacity: 0.4 });
+    const stars = new THREE.Points(starGeo, starMat);
+    scene.add(stars);
+
+    // Başlangıç Konumu: Sağ tarafta, ekranın alt kısmından başlar
+    const isDesktop = window.innerWidth > 768;
+    const initialX = isDesktop ? 2.3 : 0;
+    planetGroup.position.set(initialX, -2.2, 0);
+    planetGroup.rotation.set(0.15, -0.3, 0.1);
+
+    // GSAP ScrollTrigger: Dikey Yükseliş ve Sinematik Rotasyon
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: "body",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 1.5
+      }
+    });
+
+    tl.to(planetGroup.position, {
+      y: 2.4, // Aşağıdan yukarıya doğru süzülüş
+      z: -0.4, // Hafif derinleşme
+      ease: "none"
+    }, 0)
+    .to(planetGroup.rotation, {
+      x: 0.8,
+      y: 3.8, // Kendi etrafında akıcı dönüş
+      z: -0.3,
+      ease: "none"
+    }, 0);
+
+    // Render & Boşta Dönüş Döngüsü
+    function animate() {
+      requestAnimationFrame(animate);
+      planet.rotation.y += 0.0012;
+      atmo.rotation.y += 0.0016;
+      particleRing.rotation.y += 0.002;
+      stars.rotation.y += 0.0002;
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // Boyutlandırma
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
     });
   </script>
 </body>
