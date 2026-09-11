@@ -5,38 +5,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Berke Özbey | iOS & Software Developer</title>
   
-  <!-- Tarayıcı Sekme Logosu (Favicon) -->
+  <!-- Favicon -->
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="apple-touch-icon" href="logo.png">
   
-  <!-- SEO & Meta -->
-  <meta name="description" content="Berke Özbey - iOS & Software Developer Portfolyosu">
+  <!-- Temel SEO & Meta -->
+  <meta name="description" content="Berke Özbey - Modern ve ölçeklenebilir iOS uygulamaları, dağıtık sistemler ve dijital mimariler geliştiren Bilgisayar Mühendisi & Yazılım Geliştirici.">
   <meta name="author" content="Berke Özbey">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
   <meta property="og:title" content="Berke Özbey | iOS & Software Developer">
-  <meta property="og:description" content="Fikirleri modern ve ölçeklenebilir iOS uygulamalarına ve yazılım sistemlerine dönüştürüyorum.">
+  <meta property="og:description" content="Modern ve ölçeklenebilir iOS uygulamaları ve yazılım mimarileri geliştiriyorum.">
   <meta property="og:image" content="logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- JSON-LD Yapılandırılmış Veri -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Berke Özbey",
+    "jobTitle": "Software Engineer & iOS Developer",
+    "url": "https://github.com/berkeozby",
+    "sameAs": [
+      "https://www.linkedin.com/in/berkeözbey/",
+      "https://github.com/berkeozby",
+      "https://medium.com/@berkeozbey"
+    ]
+  }
+  </script>
 
   <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- Three.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  
-  <!-- GSAP & ScrollTrigger -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
-  <!-- Typed.js -->
-  <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
 
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
+          fontFamily: {
+            sans: [
+              '-apple-system', 
+              'BlinkMacSystemFont', 
+              '"SF Pro Display"', 
+              '"SF Pro Text"', 
+              '"Segoe UI"', 
+              'system-ui', 
+              'sans-serif'
+            ]
+          },
           colors: {
-            brand: '#3b82f6',
+            brand: '#2563eb',
             darkBg: '#05070e',
             cardBg: '#0b0f19'
           }
@@ -46,81 +67,156 @@
   </script>
 
   <style>
-    /* Premium Minimal Preloader */
+    /* Global Box-Sizing & Yumuşak Render */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body, input, textarea, button {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #05070e; 
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b; 
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #38bdf8; 
+    }
+
+    :focus-visible {
+      outline: 2px solid #38bdf8;
+      outline-offset: 4px;
+      border-radius: 6px;
+    }
+
+    /* Mühendislik Izgara Dokusu */
+    .engineering-grid {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.018) 1px, transparent 1px), 
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+      pointer-events: none;
+    }
+
+    /* Yenilenmiş Üst Düzey Preloader & Sinematik Açılış */
     #preloader {
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at center, #0a1124 0%, #03050a 100%);
+      background: radial-gradient(circle at center, #070e1e 0%, #030509 100%);
       z-index: 99999;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s ease;
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s ease;
     }
 
-    .premium-logo-wrapper {
+    #preloader.preloader-hidden {
+      opacity: 0;
+      transform: scale(1.05);
+      visibility: hidden;
+    }
+
+    .loader-stage {
       position: relative;
-      width: 140px;
-      height: 140px;
+      width: 160px;
+      height: 160px;
       display: flex;
       align-items: center;
       justify-content: center;
-      animation: logoReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
-    .preloader-glow-ring {
+    .loader-orbit-outer {
       position: absolute;
       inset: 0;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
-      animation: glowPulse 2.4s ease-in-out infinite alternate;
+      border: 1px dashed rgba(56, 189, 248, 0.25);
+      animation: spinClockwise 12s linear infinite;
     }
 
-    .preloader-logo {
-      width: 80px;
-      height: 80px;
-      z-index: 2;
-      filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.45));
+    .loader-orbit-inner {
+      position: absolute;
+      inset: 14px;
+      border-radius: 50%;
+      border: 1.5px solid transparent;
+      border-top-color: #38bdf8;
+      border-bottom-color: #2563eb;
+      animation: spinCounter 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
     }
 
-    @keyframes logoReveal {
-      0% {
-        opacity: 0;
-        transform: scale(0.85);
-        filter: blur(10px);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1);
-        filter: blur(0px);
-      }
+    .loader-radial-ambient {
+      position: absolute;
+      inset: -20px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.28) 0%, rgba(37, 99, 235, 0.08) 45%, transparent 70%);
+      animation: pulseAmbient 2.2s ease-in-out infinite alternate;
     }
 
-    @keyframes glowPulse {
-      0% {
-        transform: scale(0.9);
-        opacity: 0.4;
-      }
-      100% {
-        transform: scale(1.35);
-        opacity: 0.9;
-      }
+    .loader-logo-frame {
+      position: relative;
+      z-index: 10;
+      width: 68px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: logoEntrance 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
-    /* 3D Canvas Katmanı */
+    .loader-logo-frame img {
+      width: 100%;
+      height: 100%;
+      object-contain: contain;
+      mix-blend-mode: screen;
+      filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.6));
+    }
+
+    @keyframes spinClockwise {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes spinCounter {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(-360deg); }
+    }
+
+    @keyframes pulseAmbient {
+      0% { transform: scale(0.9); opacity: 0.4; }
+      100% { transform: scale(1.25); opacity: 0.95; filter: blur(4px); }
+    }
+
+    @keyframes logoEntrance {
+      0% { opacity: 0; transform: scale(0.75); filter: blur(12px); }
+      50% { opacity: 0.8; }
+      100% { opacity: 1; transform: scale(1); filter: blur(0px); }
+    }
+
+    /* WebGL Canvas */
     #webgl-canvas {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      z-index: 0;
+      z-index: 1;
       pointer-events: none;
     }
 
     .hero-mask {
-      background: radial-gradient(circle at 15% 45%, rgba(5, 7, 14, 0.96) 0%, rgba(5, 7, 14, 0.8) 55%, rgba(5, 7, 14, 0) 100%);
+      background: radial-gradient(circle at 18% 48%, rgba(5, 7, 14, 0.96) 0%, rgba(5, 7, 14, 0.8) 52%, rgba(5, 7, 14, 0.2) 100%);
     }
 
     .content-layer {
@@ -128,21 +224,21 @@
       z-index: 10;
     }
 
-    .glass-card {
-      background: rgba(11, 15, 25, 0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Senior Cam Panel */
+    .glass-panel {
+      background: rgba(11, 15, 25, 0.65);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .glass-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(56, 189, 248, 0.4);
-      box-shadow: 0 20px 35px -15px rgba(56, 189, 248, 0.25);
+    .glass-panel:hover {
+      border-color: rgba(56, 189, 248, 0.35);
+      background: rgba(15, 23, 42, 0.75);
     }
 
     .gradient-text {
-      background: linear-gradient(135deg, #60a5fa 0%, #38bdf8 50%, #34d399 100%);
+      background: linear-gradient(135deg, #93c5fd 0%, #38bdf8 50%, #34d399 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -154,665 +250,1009 @@
     }
     .typed-cursor {
       color: #38bdf8;
-      font-weight: 300;
+      font-weight: 200;
+      margin-left: 2px;
     }
 
     .section-indicator {
       display: inline-block;
-      width: 4px;
-      height: 1.2em;
-      background: linear-gradient(to bottom, #38bdf8, #3b82f6);
+      width: 3px;
+      height: 1.1em;
+      background: linear-gradient(to bottom, #38bdf8, #2563eb);
       border-radius: 9999px;
     }
 
-    /* Filter Buton Aktif State */
     .filter-btn.active {
-      background-color: rgba(59, 130, 246, 0.2);
-      border-color: rgba(56, 189, 248, 0.6);
+      background-color: rgba(37, 99, 235, 0.18);
+      border-color: rgba(56, 189, 248, 0.5);
       color: #38bdf8;
-      box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.15);
     }
 
-    .cert-card.fade-out {
+    .nav-link.active {
+      color: #38bdf8;
+      position: relative;
+    }
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 14px;
+      height: 2.5px;
+      background-color: #38bdf8;
+      border-radius: 2px;
+    }
+
+    .reveal-up {
       opacity: 0;
-      transform: scale(0.95);
-      transition: all 0.2s ease-out;
-    }
-
-    .cert-card.fade-in {
-      opacity: 1;
-      transform: scale(1);
-      transition: all 0.3s ease-in;
+      transform: translateY(20px);
+      will-change: transform, opacity;
     }
   </style>
 </head>
-<body class="bg-[#05070e] text-slate-100 font-sans antialiased selection:bg-blue-500 selection:text-white relative overflow-x-hidden">
+<body class="bg-[#05070e] text-slate-100 font-sans antialiased selection:bg-blue-600 selection:text-white relative overflow-x-hidden tracking-tight text-sm">
 
-  <!-- Minimal & Premium Preloader -->
-  <div id="preloader">
-    <div class="premium-logo-wrapper">
-      <div class="preloader-glow-ring"></div>
-      <img src="logo.png" alt="BRK Logo" class="preloader-logo object-contain">
+  <!-- Mühendislik Arka Plan Dokusu -->
+  <div class="engineering-grid"></div>
+
+  <!-- Yenilenmiş Sinematik Preloader -->
+  <div id="preloader" aria-hidden="true">
+    <div class="loader-stage">
+      <div class="loader-radial-ambient"></div>
+      <div class="loader-orbit-outer"></div>
+      <div class="loader-orbit-inner"></div>
+      <div class="loader-logo-frame">
+        <img src="logo.png" alt="Berke Özbey Logo">
+      </div>
     </div>
   </div>
 
-  <!-- 3D Canvas -->
-  <canvas id="webgl-canvas"></canvas>
+  <!-- Three.js Canvas -->
+  <canvas id="webgl-canvas" aria-hidden="true"></canvas>
 
   <!-- Navbar -->
-  <nav class="fixed top-0 left-0 w-full bg-[#05070e]/85 backdrop-blur-xl border-b border-slate-800/80 z-50">
-    <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3 group">
-        <img src="logo.png" alt="BRK Logo" class="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110">
-        <span class="font-bold text-base sm:text-lg tracking-tight text-white group-hover:text-blue-400 transition whitespace-nowrap">
+  <nav class="fixed top-0 left-0 w-full bg-[#05070e]/80 backdrop-blur-2xl border-b border-white/[0.06] z-50 transition-all duration-300">
+    <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+      <a href="#about" aria-label="Ana Sayfa" class="flex items-center gap-2.5 group">
+        <img src="logo.png" alt="BRK Logo" aria-hidden="true" class="w-7 h-7 object-contain transition-transform duration-300 group-hover:scale-105" style="mix-blend-mode: screen;">
+        <span class="font-bold text-sm tracking-tight text-white group-hover:text-blue-400 transition whitespace-nowrap">
           Berke Özbey<span class="text-blue-500">.</span>
         </span>
       </a>
       
-      <div class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-300">
-        <a href="#about" class="hover:text-blue-400 transition">Hakkımda</a>
-        <a href="#experience" class="hover:text-blue-400 transition">Deneyim</a>
-        <a href="#skills" class="hover:text-blue-400 transition">Yetenekler</a>
-        <a href="#certifications" class="hover:text-blue-400 transition">Sertifikalar</a>
-        <a href="#articles" class="hover:text-blue-400 transition">Yazılarım</a>
-        <button onclick="openContactModal()" class="hover:text-blue-400 transition flex items-center gap-1.5 focus:outline-none">
-          İletişim
-        </button>
-      </div>
-
-      <div class="flex items-center gap-2">
-        <button onclick="openContactModal()" class="md:hidden text-slate-300 hover:text-white p-2" title="İletişim">
-          <i class="fa-regular fa-envelope text-lg"></i>
-        </button>
-        <a href="https://github.com/berkeozby" target="_blank" class="text-slate-300 hover:text-white p-2">
-          <i class="fa-brands fa-github text-xl"></i>
-        </a>
+      <!-- Sağa Dayalı & Bold Butonlar -->
+      <div class="flex items-center space-x-6 sm:space-x-8 text-xs font-bold text-slate-300 ml-auto">
+        <a href="#about" class="nav-link hover:text-white transition-colors">Hakkımda</a>
+        <a href="#experience" class="nav-link hover:text-white transition-colors">Deneyim</a>
+        <a href="#engineering" class="nav-link hover:text-white transition-colors">Mühendislik</a>
       </div>
     </div>
   </nav>
 
-  <!-- İçerik Katmanı -->
+  <!-- Ana İçerik Katmanı -->
   <main class="content-layer">
-    <!-- Hero Section -->
-    <header id="about" class="pt-32 sm:pt-36 pb-20 px-6 max-w-5xl mx-auto min-h-screen flex flex-col justify-center hero-mask">
-      <div class="max-w-2xl">
-        <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+    <!-- Hero Bölümü -->
+    <header id="about" class="section pt-36 pb-20 px-6 max-w-5xl mx-auto min-h-[90vh] flex flex-col justify-center hero-mask reveal-up">
+      <div class="max-w-2xl relative z-10">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-5 leading-[1.18]">
           Fikirleri modern ve ölçeklenebilir <br />
           <span class="type-container"><span id="typed-text" class="gradient-text"></span></span>
         </h1>
         
-        <p class="text-base sm:text-lg text-slate-300 leading-relaxed mb-8 max-w-xl">
-          Teorik altyapıyı pratik mühendislik disipliniyle birleştirerek iOS (Swift & Xcode), dijital kampanya sistemleri ve modern yazılım ekosisteminde çözümler üretiyorum.
+        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-8 max-w-lg font-normal">
+          Bilgisayar mühendisliği prensiplerini pratik iOS mimarisi (Swift & Xcode), dağıtık veri akışları ve performans optimizasyonu ile buluşturuyorum.
         </p>
         
-        <div class="flex flex-wrap gap-3 sm:gap-4">
-          <a href="https://medium.com/@berkeozbey" target="_blank" class="px-5 py-3 sm:px-6 sm:py-3.5 bg-blue-600 hover:bg-blue-500 text-white text-sm sm:text-base font-medium rounded-xl transition-all shadow-lg shadow-blue-600/30 hover:shadow-blue-500/50 hover:-translate-y-0.5 flex items-center gap-2">
-            <i class="fa-brands fa-medium text-lg"></i> Medium Yazılarım
+        <div class="flex flex-wrap gap-2.5 sm:gap-3">
+          <a href="https://medium.com/@berkeozbey" target="_blank" aria-label="Medium Yazıları" class="px-4 py-2.5 bg-slate-900/80 hover:bg-slate-800 text-slate-200 text-xs font-medium rounded-lg border border-slate-700/60 hover:border-slate-600 transition-all hover:-translate-y-0.5 flex items-center gap-2 backdrop-blur-md">
+            <i class="fa-brands fa-medium text-sm" aria-hidden="true"></i> Medium Yazılarım
           </a>
-          <a href="https://www.linkedin.com/in/berkeözbey/" target="_blank" class="px-5 py-3 sm:px-6 sm:py-3.5 bg-slate-800/90 hover:bg-slate-700 text-slate-200 text-sm sm:text-base font-medium rounded-xl border border-slate-700 transition-all hover:-translate-y-0.5 flex items-center gap-2">
-            <i class="fa-brands fa-linkedin text-blue-400 text-lg"></i> LinkedIn
+          <a href="https://www.linkedin.com/in/berkeözbey/" target="_blank" aria-label="LinkedIn Profili" class="px-4 py-2.5 bg-slate-900/80 hover:bg-slate-800 text-slate-200 text-xs font-medium rounded-lg border border-slate-700/60 hover:border-slate-600 transition-all hover:-translate-y-0.5 flex items-center gap-2 backdrop-blur-md">
+            <i class="fa-brands fa-linkedin text-blue-400 text-sm" aria-hidden="true"></i> LinkedIn
           </a>
-          <a href="https://github.com/berkeozby" target="_blank" class="px-5 py-3 sm:px-6 sm:py-3.5 bg-slate-800/90 hover:bg-slate-700 text-slate-200 text-sm sm:text-base font-medium rounded-xl border border-slate-700 transition-all hover:-translate-y-0.5 flex items-center gap-2">
-            <i class="fa-brands fa-github text-lg"></i> GitHub
+          <a href="https://github.com/berkeozby" target="_blank" aria-label="GitHub Profili" class="px-4 py-2.5 bg-slate-900/80 hover:bg-slate-800 text-slate-200 text-xs font-medium rounded-lg border border-slate-700/60 hover:border-slate-600 transition-all hover:-translate-y-0.5 flex items-center gap-2 backdrop-blur-md">
+            <i class="fa-brands fa-github text-sm" aria-hidden="true"></i> GitHub
           </a>
         </div>
       </div>
     </header>
 
-    <!-- Deneyim & Çalışmalar Bölümü -->
-    <section id="experience" class="py-20 px-6 max-w-5xl mx-auto">
-      <div class="mb-10">
-        <h2 class="text-2xl sm:text-3xl font-bold text-white flex items-center gap-3">
+    <!-- Deneyim & Ürünler Bölümü -->
+    <section id="experience" class="section py-16 px-6 max-w-5xl mx-auto">
+      <div class="mb-8 reveal-up">
+        <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2.5 tracking-tight">
           <span class="section-indicator"></span> Deneyim & Uygulama Çalışmaları
         </h2>
-        <p class="text-slate-400 text-sm mt-1">Mobil ürün geliştirme, reklam optimizasyonları ve kurumsal dijital operasyonlar</p>
+        <p class="text-slate-400 text-xs mt-1 font-normal">Mobil ürün mühendisliği, sistem yönetimi ve kurumsal operasyonlar</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- 1. SubOrbit (App Store) -->
-        <div class="glass-card p-6 sm:p-7 rounded-2xl flex flex-col justify-between group">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- SubOrbit -->
+        <article class="glass-panel p-5 rounded-xl flex flex-col justify-between group relative overflow-hidden reveal-up">
           <div>
-            <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 text-2xl mb-4 group-hover:scale-110 group-hover:bg-blue-500 group-hover:text-white transition-all">
-              <i class="fa-brands fa-app-store-ios"></i>
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-9 h-9 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 text-lg group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+                <i class="fa-brands fa-app-store-ios" aria-hidden="true"></i>
+              </div>
+              <span class="px-2.5 py-0.5 text-[10px] font-medium text-emerald-400 bg-emerald-500/10 rounded-full border border-emerald-500/20">
+                APP STORE'DA YAYINDA
+              </span>
             </div>
-            <div class="inline-block px-2.5 py-0.5 text-[11px] font-bold text-blue-400 bg-blue-500/10 rounded-md border border-blue-500/20 mb-2">APP STORE'DA YAYINDA</div>
-            <h3 class="font-bold text-lg text-white mb-2">SubOrbit | Abonelik Takip Sistemi</h3>
-            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed mb-4">
-              Kullanıcıların yinelenen harcamalarını yöneten, bildirim tabanlı akıllı hatırlatıcılar sunan ve MVVM mimarisiyle geliştirilen iOS uygulaması.
+            <h3 class="font-bold text-sm text-white mb-1.5 tracking-tight">SubOrbit &bull; Abonelik Takip Sistemi</h3>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4 font-normal">
+              Yinelenen ödemeleri yöneten, yerel bildirimlerle akıllı hatırlatmalar sunan ve MVVM mimarisiyle sıfırdan geliştirilen native iOS uygulaması.
             </p>
           </div>
-          <div class="pt-3 border-t border-slate-800 text-[11px] font-mono text-slate-400 flex items-center justify-between">
-            <span>Swift / UIKit</span>
-            <span class="text-sky-400">Live</span>
+          <div class="pt-3 border-t border-slate-800/80 text-[11px] text-slate-400 flex items-center justify-between">
+            <span>Swift &bull; UIKit &bull; LocalNotifications</span>
+            <span class="text-sky-400 font-medium">Production</span>
           </div>
-        </div>
+        </article>
 
-        <!-- 2. İlaç Saati (Yeni Uygulama) -->
-        <div class="glass-card p-6 sm:p-7 rounded-2xl flex flex-col justify-between group">
+        <!-- İlaç Saati -->
+        <article class="glass-panel p-5 rounded-xl flex flex-col justify-between group relative overflow-hidden reveal-up">
           <div>
-            <div class="w-12 h-12 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400 text-2xl mb-4 group-hover:scale-110 group-hover:bg-rose-500 group-hover:text-white transition-all">
-              <i class="fa-solid fa-pills"></i>
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-lg group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
+                <i class="fa-solid fa-pills" aria-hidden="true"></i>
+              </div>
+              <span class="px-2.5 py-0.5 text-[10px] font-medium text-emerald-400 bg-emerald-500/10 rounded-full border border-emerald-500/20">
+                APP STORE'DA YAYINDA
+              </span>
             </div>
-            <div class="inline-block px-2.5 py-0.5 text-[11px] font-bold text-emerald-400 bg-emerald-500/10 rounded-md border border-emerald-500/20 mb-2">YAYIN AŞAMASINDA</div>
-            <h3 class="font-bold text-lg text-white mb-2">İlaç Saati</h3>
-            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed mb-4">
-              Kullanıcıların düzenli olarak ilaç kullanımlarını takip etmelerini ve bildirimlerle planlamalarını sağlayan sağlık ve hatırlatıcı iOS uygulaması.
+            <h3 class="font-bold text-sm text-white mb-1.5 tracking-tight">İlaç Saati &bull; Sağlık & Hatırlatıcı</h3>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4 font-normal">
+              Rutin tedavi süreçlerini organize eden, zamanında kullanım için bildirim algoritmaları barındıran kullanıcı odaklı sağlık takip sistemi.
             </p>
           </div>
-          <div class="pt-3 border-t border-slate-800 text-[11px] font-mono text-slate-400 flex items-center justify-between">
-            <span>Swift / iOS</span>
-            <span class="text-sky-400">App Store Ready</span>
+          <div class="pt-3 border-t border-slate-800/80 text-[11px] text-slate-400 flex items-center justify-between">
+            <span>Swift &bull; Core Data &bull; iOS SDK</span>
+            <span class="text-emerald-400 font-medium">Production</span>
           </div>
-        </div>
+        </article>
 
-        <!-- 3. Google Reklam & Panel Çalışmaları -->
-        <div class="glass-card p-6 sm:p-7 rounded-2xl flex flex-col justify-between group">
+        <!-- Google Ads -->
+        <article class="glass-panel p-5 rounded-xl flex flex-col justify-between group relative overflow-hidden reveal-up">
           <div>
-            <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-2xl mb-4 group-hover:scale-110 group-hover:bg-amber-500 group-hover:text-white transition-all">
-              <i class="fa-brands fa-google"></i>
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-9 h-9 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-lg group-hover:bg-amber-600 group-hover:text-white transition-colors duration-300">
+                <i class="fa-brands fa-google" aria-hidden="true"></i>
+              </div>
+              <span class="px-2.5 py-0.5 text-[10px] font-medium text-amber-400 bg-amber-500/10 rounded-full border border-amber-500/20">
+                KAMPANYA OPTİMİZASYONU
+              </span>
             </div>
-            <div class="inline-block px-2.5 py-0.5 text-[11px] font-bold text-amber-400 bg-amber-500/10 rounded-md border border-amber-500/20 mb-2">DİJİTAL BÜYÜME</div>
-            <h3 class="font-bold text-lg text-white mb-2">Google Reklam & Panel Yönetimi</h3>
-            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed mb-4">
-              Eğitim kurumları ve anaokulları için Google Ads arama/görüntülü reklam mimarisi, analitik dönüşüm hunileri ve kampanya performans paneli yönetimi.
+            <h3 class="font-bold text-sm text-white mb-1.5 tracking-tight">Google Ads &bull; Performans & Panel Mimarisi</h3>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4 font-normal">
+              Eğitim kurumları için arama ve görüntülü reklam ağlarında dönüşüm hunisi kurgusu, negatif anahtar kelime filtrelemesi ve bütçe optimizasyonu.
             </p>
           </div>
-          <div class="pt-3 border-t border-slate-800 text-[11px] font-mono text-slate-400 flex items-center justify-between">
-            <span>Google Ads / Analytics</span>
-            <span class="text-amber-400">Kampanya Opt.</span>
+          <div class="pt-3 border-t border-slate-800/80 text-[11px] text-slate-400 flex items-center justify-between">
+            <span>Analytics &bull; Conversion Funnels</span>
+            <span class="text-amber-400 font-medium">Operations</span>
           </div>
-        </div>
+        </article>
 
-        <!-- 4. Meta Business Suite -->
-        <div class="glass-card p-6 sm:p-7 rounded-2xl flex flex-col justify-between group">
+        <!-- Meta Business -->
+        <article class="glass-panel p-5 rounded-xl flex flex-col justify-between group relative overflow-hidden reveal-up">
           <div>
-            <div class="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 text-2xl mb-4 group-hover:scale-110 group-hover:bg-sky-500 group-hover:text-white transition-all">
-              <i class="fa-brands fa-meta"></i>
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-9 h-9 rounded-lg bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 text-lg group-hover:bg-sky-600 group-hover:text-white transition-colors duration-300">
+                <i class="fa-brands fa-meta" aria-hidden="true"></i>
+              </div>
+              <span class="px-2.5 py-0.5 text-[10px] font-medium text-sky-400 bg-sky-500/10 rounded-full border border-sky-500/20">
+                HEDEF KİTLE YÖNETİMİ
+              </span>
             </div>
-            <div class="inline-block px-2.5 py-0.5 text-[11px] font-bold text-sky-400 bg-sky-500/10 rounded-md border border-sky-500/20 mb-2">SOSYAL MEDYA PANELİ</div>
-            <h3 class="font-bold text-lg text-white mb-2">Meta Business Suite & Reklam Panelleri</h3>
-            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed mb-4">
-              Meta Business Manager üzerinde hedef kitle segmentasyonu, dinamik A/B test reklam setleri ve etkileşim odaklı kampanya optimizasyonları.
+            <h3 class="font-bold text-sm text-white mb-1.5 tracking-tight">Meta Business &bull; Kampanya Mimarisi</h3>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4 font-normal">
+              Meta Manager üzerinde özel hedef kitle segmentasyonu, dinamik A/B test setleri ve etkileşim odaklı kampanya bütçe yönetimi.
             </p>
           </div>
-          <div class="pt-3 border-t border-slate-800 text-[11px] font-mono text-slate-400 flex items-center justify-between">
-            <span>Meta Ads Manager</span>
-            <span class="text-sky-400">Hedef Kitle & Bütçe</span>
+          <div class="pt-3 border-t border-slate-800/80 text-[11px] text-slate-400 flex items-center justify-between">
+            <span>Meta Ads &bull; Audience Insights</span>
+            <span class="text-sky-400 font-medium">Operations</span>
           </div>
-        </div>
+        </article>
       </div>
     </section>
 
-    <!-- Skills / Odak Alanları -->
-    <section id="skills" class="py-20 px-6 max-w-5xl mx-auto">
-      <div class="mb-10">
-        <h2 class="text-2xl sm:text-3xl font-bold text-white flex items-center gap-3">
+    <!-- Mühendislik & Vaka Çalışmaları -->
+    <section id="engineering" class="section py-16 px-6 max-w-5xl mx-auto">
+      <div class="mb-8 reveal-up">
+        <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2.5 tracking-tight">
+          <span class="section-indicator"></span> Mühendislik & Akademik Projeler
+        </h2>
+        <p class="text-slate-400 text-xs mt-1 font-normal">Yazılım yaşam döngüsü, simülasyon ve düşük seviyeli sistem vaka çalışmaları</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- SmartCV -->
+        <article class="glass-panel p-5 rounded-xl flex flex-col justify-between group relative overflow-hidden reveal-up">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2 py-0.5 text-[10px] text-indigo-400 bg-indigo-500/10 rounded border border-indigo-500/20 font-semibold">YAZILIM MÜHENDİSLİĞİ</span>
+              <span class="text-[11px] text-slate-500">2026</span>
+            </div>
+            <h3 class="font-bold text-sm text-white mb-1.5 tracking-tight">SmartCV &bull; Akıllı Özgeçmiş Mimarisi</h3>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4 font-normal">
+              Yazılım Mühendisliği süreçleri uyarınca risk analizi, iş paketleri ayrıştırması (WBS) ve mimari gereksinimleri detaylandırılmış mobil sistem çalışması.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 text-[11px] text-slate-400 flex items-center justify-between">
+            <span>Architecture &bull; Agile Docs</span>
+            <span class="text-indigo-400 font-medium">Tamamlandı</span>
+          </div>
+        </article>
+
+        <!-- OPNET -->
+        <article class="glass-panel p-5 rounded-xl flex flex-col justify-between group relative overflow-hidden reveal-up">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2 py-0.5 text-[10px] text-cyan-400 bg-cyan-500/10 rounded border border-cyan-500/20 font-semibold">BİLGİSAYAR AĞLARI</span>
+              <span class="text-[11px] text-slate-500">OPNET</span>
+            </div>
+            <h3 class="font-bold text-sm text-white mb-1.5 tracking-tight">FTP Protokol & Trafik Darboğaz Analizi</h3>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4 font-normal">
+              OPNET Modeler ortamında farklı topolojilerde FTP paket gecikmelerinin modellenmesi, aktarım hızı darboğazlarının simülasyonu ve analizi.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 text-[11px] text-slate-400 flex items-center justify-between">
+            <span>Simulations &bull; Protocol Modeling</span>
+            <span class="text-cyan-400 font-medium">Tamamlandı</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Yetenekler / Odak Alanları -->
+    <section id="skills" class="section py-16 px-6 max-w-5xl mx-auto">
+      <div class="mb-8 reveal-up">
+        <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2.5 tracking-tight">
           <span class="section-indicator"></span> Odaklandığım Teknolojiler
         </h2>
-        <p class="text-slate-400 text-sm mt-1">Geliştirme süreçlerimde aktif olarak kullandığım mimari ve araçlar</p>
+        <p class="text-slate-400 text-xs mt-1 font-normal">Aktif mimariler, araç setleri ve geliştirme ortamları</p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div class="glass-card p-6 rounded-2xl group">
-          <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 text-2xl mb-4 group-hover:scale-110 group-hover:bg-blue-500 group-hover:text-white transition-all duration-300">
-            <i class="fa-brands fa-swift"></i>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+        <div class="glass-panel p-4 rounded-xl group reveal-up">
+          <div class="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 text-base mb-3 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-200">
+            <i class="fa-brands fa-swift" aria-hidden="true"></i>
           </div>
-          <h3 class="font-semibold text-lg text-white">Swift & iOS</h3>
-          <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Xcode, UIKit, Auto Layout, MVC & MVVM mimarisi</p>
+          <h3 class="font-semibold text-xs text-white mb-1">Swift & iOS</h3>
+          <p class="text-[11px] text-slate-400 leading-relaxed font-normal">Xcode, UIKit, Auto Layout, MVC & MVVM mimarisi</p>
         </div>
 
-        <div class="glass-card p-6 rounded-2xl group">
-          <div class="w-12 h-12 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-teal-400 text-2xl mb-4 group-hover:scale-110 group-hover:bg-teal-500 group-hover:text-white transition-all duration-300">
-            <i class="fa-solid fa-code"></i>
+        <div class="glass-panel p-4 rounded-xl group reveal-up">
+          <div class="w-8 h-8 rounded-lg bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-teal-400 text-base mb-3 group-hover:bg-teal-600 group-hover:text-white transition-colors duration-200">
+            <i class="fa-solid fa-code" aria-hidden="true"></i>
           </div>
-          <h3 class="font-semibold text-lg text-white">C & C++</h3>
-          <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Veri Yapıları, Algoritmalar ve Düşük Seviye Programlama</p>
+          <h3 class="font-semibold text-xs text-white mb-1">C & C++</h3>
+          <p class="text-[11px] text-slate-400 leading-relaxed font-normal">Veri Yapıları, Algoritmalar, Bellek Yönetimi</p>
         </div>
 
-        <div class="glass-card p-6 rounded-2xl group">
-          <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-2xl mb-4 group-hover:scale-110 group-hover:bg-indigo-500 group-hover:text-white transition-all duration-300">
-            <i class="fa-brands fa-html5"></i>
+        <div class="glass-panel p-4 rounded-xl group reveal-up">
+          <div class="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-base mb-3 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-200">
+            <i class="fa-brands fa-html5" aria-hidden="true"></i>
           </div>
-          <h3 class="font-semibold text-lg text-white">Web Teknolojileri</h3>
-          <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">HTML5, CSS3, Tailwind CSS, Modern JavaScript</p>
+          <h3 class="font-semibold text-xs text-white mb-1">Web Teknolojileri</h3>
+          <p class="text-[11px] text-slate-400 leading-relaxed font-normal">HTML5, Modern JS, Tailwind CSS, Core Web Vitals</p>
         </div>
 
-        <div class="glass-card p-6 rounded-2xl group">
-          <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-2xl mb-4 group-hover:scale-110 group-hover:bg-cyan-500 group-hover:text-white transition-all duration-300">
-            <i class="fa-solid fa-microchip"></i>
+        <div class="glass-panel p-4 rounded-xl group reveal-up">
+          <div class="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-base mb-3 group-hover:bg-cyan-600 group-hover:text-white transition-colors duration-200">
+            <i class="fa-solid fa-microchip" aria-hidden="true"></i>
           </div>
-          <h3 class="font-semibold text-lg text-white">Gömülü Sistemler</h3>
-          <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">8051 Assembly, Keil uVision, Proteus Simülasyon</p>
+          <h3 class="font-semibold text-xs text-white mb-1">Gömülü Sistemler</h3>
+          <p class="text-[11px] text-slate-400 leading-relaxed font-normal">8051 Assembly, Keil uVision, Proteus Simülasyon</p>
         </div>
       </div>
     </section>
 
-    <!-- Sertifikalar Bölümü (Kategori Filtreleme & Akıllı Düzen) -->
-    <section id="certifications" class="py-20 px-6 max-w-5xl mx-auto">
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+    <!-- Sertifikalar Bölümü -->
+    <section id="certifications" class="section py-16 px-6 max-w-5xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-3 mb-8 reveal-up">
         <div>
-          <h2 class="text-2xl sm:text-3xl font-bold text-white flex items-center gap-3">
+          <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2.5 tracking-tight">
             <span class="section-indicator"></span> Lisanslar ve Sertifikalar
           </h2>
-          <p class="text-slate-400 text-sm mt-1">LinkedIn üzerinde onaylı uluslararası mühendislik ve yazılım sertifikalarım</p>
+          <p class="text-slate-400 text-xs mt-1 font-normal">Onaylı uluslararası mühendislik ve yazılım akreditasyonları</p>
         </div>
-        <a href="https://www.linkedin.com/in/berkeözbey/" target="_blank" class="text-sm font-semibold text-blue-400 hover:text-blue-300 transition flex items-center gap-1.5 self-start md:self-auto">
-          LinkedIn'de Doğrula <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+        <a href="https://www.linkedin.com/in/berkeözbey/" target="_blank" aria-label="LinkedIn Sertifika Doğrulama" class="px-3 py-1.5 bg-slate-900/80 hover:bg-slate-800 text-xs font-medium text-slate-300 hover:text-white border border-slate-700/60 rounded-lg transition-all flex items-center gap-1.5 self-start md:self-auto backdrop-blur-sm">
+          LinkedIn'de Doğrula <i class="fa-solid fa-arrow-up-right-from-square text-[10px]" aria-hidden="true"></i>
         </a>
       </div>
 
-      <!-- Kategori Filtre Hapları -->
-      <div class="flex flex-wrap gap-2 mb-8">
-        <button onclick="filterCerts('all', this)" class="filter-btn active px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900/90 border border-slate-700/80 text-slate-300 hover:text-white hover:border-slate-600 transition-all">
+      <!-- Kategori Filtre Butonları -->
+      <div class="flex flex-wrap gap-1.5 mb-6 reveal-up" role="group" aria-label="Sertifika Filtreleri">
+        <button onclick="filterCerts('all', this)" class="filter-btn active px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-900/80 border border-slate-700/60 text-slate-300 hover:text-white transition-all">
           Tümü (<span id="count-all">16</span>)
         </button>
-        <button onclick="filterCerts('ios', this)" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900/90 border border-slate-700/80 text-slate-300 hover:text-white hover:border-slate-600 transition-all flex items-center gap-1.5">
-          <i class="fa-brands fa-apple text-sm"></i> Mobil & iOS
+        <button onclick="filterCerts('ios', this)" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-900/80 border border-slate-700/60 text-slate-300 hover:text-white transition-all flex items-center gap-1.5">
+          <i class="fa-brands fa-apple text-xs" aria-hidden="true"></i> Mobil & iOS
         </button>
-        <button onclick="filterCerts('ai', this)" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900/90 border border-slate-700/80 text-slate-300 hover:text-white hover:border-slate-600 transition-all flex items-center gap-1.5">
-          <i class="fa-solid fa-brain text-xs"></i> Yapay Zeka & Veri
+        <button onclick="filterCerts('ai', this)" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-900/80 border border-slate-700/60 text-slate-300 hover:text-white transition-all flex items-center gap-1.5">
+          <i class="fa-solid fa-brain text-[10px]" aria-hidden="true"></i> Yapay Zeka & Veri
         </button>
-        <button onclick="filterCerts('cloud', this)" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900/90 border border-slate-700/80 text-slate-300 hover:text-white hover:border-slate-600 transition-all flex items-center gap-1.5">
-          <i class="fa-solid fa-cloud text-xs"></i> Bulut & DevOps
+        <button onclick="filterCerts('cloud', this)" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-900/80 border border-slate-700/60 text-slate-300 hover:text-white transition-all flex items-center gap-1.5">
+          <i class="fa-solid fa-cloud text-[10px]" aria-hidden="true"></i> Bulut & DevOps
         </button>
-        <button onclick="filterCerts('sec-sys', this)" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900/90 border border-slate-700/80 text-slate-300 hover:text-white hover:border-slate-600 transition-all flex items-center gap-1.5">
-          <i class="fa-solid fa-shield-halved text-xs"></i> Güvenlik & Sistem
+        <button onclick="filterCerts('sec-sys', this)" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-900/80 border border-slate-700/60 text-slate-300 hover:text-white transition-all flex items-center gap-1.5">
+          <i class="fa-solid fa-shield-halved text-[10px]" aria-hidden="true"></i> Güvenlik & Sistem
         </button>
       </div>
 
-      <!-- Sertifika Kartları Grid Yapısı -->
-      <div id="certs-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <!-- 1. Meta iOS -->
-        <div class="cert-card glass-card p-5 rounded-xl flex flex-col justify-between" data-category="ios">
-          <div class="flex items-start gap-3.5 mb-3">
-            <div class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 text-lg flex-shrink-0">
-              <i class="fa-brands fa-meta"></i>
+      <!-- Sertifika Kartları Grid -->
+      <div id="certs-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 reveal-up">
+        <!-- Meta iOS -->
+        <div class="cert-card glass-panel p-4 rounded-xl flex flex-col justify-between" data-category="ios">
+          <div class="flex items-start gap-3 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 text-sm flex-shrink-0">
+              <i class="fa-brands fa-meta" aria-hidden="true"></i>
             </div>
             <div>
-              <h4 class="font-bold text-sm text-white">Introduction to iOS Mobile Application Development</h4>
-              <p class="text-xs text-slate-400">Meta</p>
+              <h4 class="font-bold text-xs text-white leading-snug">iOS Mobile Application Development</h4>
+              <p class="text-[11px] text-slate-400 mt-0.5 font-normal">Meta</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-400">
-            <span>Kimlik: <span class="text-slate-300">4UYC7DP4PJFV</span></span>
-            <span class="text-emerald-400">Doğrulandı</span>
+          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[10px] text-slate-400">
+            <span>ID: <span class="text-slate-300">4UYC7DP4PJFV</span></span>
+            <span class="text-emerald-400 font-medium">Doğrulandı</span>
           </div>
         </div>
 
-        <!-- 2. Amazon Software Development -->
-        <div class="cert-card glass-card p-5 rounded-xl flex flex-col justify-between" data-category="cloud">
-          <div class="flex items-start gap-3.5 mb-3">
-            <div class="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-lg flex-shrink-0">
-              <i class="fa-brands fa-amazon"></i>
+        <!-- Amazon -->
+        <div class="cert-card glass-panel p-4 rounded-xl flex flex-col justify-between" data-category="cloud">
+          <div class="flex items-start gap-3 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-sm flex-shrink-0">
+              <i class="fa-brands fa-amazon" aria-hidden="true"></i>
             </div>
             <div>
-              <h4 class="font-bold text-sm text-white">Introduction to Software Development</h4>
-              <p class="text-xs text-slate-400">Amazon</p>
+              <h4 class="font-bold text-xs text-white leading-snug">Introduction to Software Development</h4>
+              <p class="text-[11px] text-slate-400 mt-0.5 font-normal">Amazon</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-400">
-            <span>Kimlik: <span class="text-slate-300">QWF89EGJN6LC</span></span>
-            <span class="text-emerald-400">Doğrulandı</span>
+          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[10px] text-slate-400">
+            <span>ID: <span class="text-slate-300">QWF89EGJN6LC</span></span>
+            <span class="text-emerald-400 font-medium">Doğrulandı</span>
           </div>
         </div>
 
-        <!-- 3. Google Cloud Engineer -->
-        <div class="cert-card glass-card p-5 rounded-xl flex flex-col justify-between" data-category="cloud">
-          <div class="flex items-start gap-3.5 mb-3">
-            <div class="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 text-lg flex-shrink-0">
-              <i class="fa-brands fa-google"></i>
+        <!-- Google Cloud -->
+        <div class="cert-card glass-panel p-4 rounded-xl flex flex-col justify-between" data-category="cloud">
+          <div class="flex items-start gap-3 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 text-sm flex-shrink-0">
+              <i class="fa-brands fa-google" aria-hidden="true"></i>
             </div>
             <div>
-              <h4 class="font-bold text-sm text-white">Preparing for Your Associate Cloud Engineer Journey</h4>
-              <p class="text-xs text-slate-400">Google</p>
+              <h4 class="font-bold text-xs text-white leading-snug">Associate Cloud Engineer Journey</h4>
+              <p class="text-[11px] text-slate-400 mt-0.5 font-normal">Google</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-400">
-            <span>Kimlik: <span class="text-slate-300">5XBDI62RBW11</span></span>
-            <span class="text-emerald-400">Doğrulandı</span>
+          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[10px] text-slate-400">
+            <span>ID: <span class="text-slate-300">5XBDI62RBW11</span></span>
+            <span class="text-emerald-400 font-medium">Doğrulandı</span>
           </div>
         </div>
 
-        <!-- 4. DeepLearning.AI Generative AI -->
-        <div class="cert-card glass-card p-5 rounded-xl flex flex-col justify-between" data-category="ai">
-          <div class="flex items-start gap-3.5 mb-3">
-            <div class="w-10 h-10 rounded-lg bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400 text-lg flex-shrink-0">
-              <i class="fa-solid fa-brain"></i>
+        <!-- DeepLearning.AI -->
+        <div class="cert-card glass-panel p-4 rounded-xl flex flex-col justify-between" data-category="ai">
+          <div class="flex items-start gap-3 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400 text-sm flex-shrink-0">
+              <i class="fa-solid fa-brain" aria-hidden="true"></i>
             </div>
             <div>
-              <h4 class="font-bold text-sm text-white">Introduction to Generative AI for Dev</h4>
-              <p class="text-xs text-slate-400">DeepLearning.AI</p>
+              <h4 class="font-bold text-xs text-white leading-snug">Generative AI for Developers</h4>
+              <p class="text-[11px] text-slate-400 mt-0.5 font-normal">DeepLearning.AI</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-400">
-            <span>Kimlik: <span class="text-slate-300">CFA3UVEC16TL</span></span>
-            <span class="text-emerald-400">Doğrulandı</span>
+          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[10px] text-slate-400">
+            <span>ID: <span class="text-slate-300">CFA3UVEC16TL</span></span>
+            <span class="text-emerald-400 font-medium">Doğrulandı</span>
           </div>
         </div>
 
-        <!-- 5. University of Michigan Data Science -->
-        <div class="cert-card glass-card p-5 rounded-xl flex flex-col justify-between" data-category="ai">
-          <div class="flex items-start gap-3.5 mb-3">
-            <div class="w-10 h-10 rounded-lg bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center text-yellow-400 text-lg flex-shrink-0">
-              <i class="fa-solid fa-graduation-cap"></i>
+        <!-- Michigan -->
+        <div class="cert-card glass-panel p-4 rounded-xl flex flex-col justify-between" data-category="ai">
+          <div class="flex items-start gap-3 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center text-yellow-400 text-sm flex-shrink-0">
+              <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
             </div>
             <div>
-              <h4 class="font-bold text-sm text-white">Introduction to Data Science in Python</h4>
-              <p class="text-xs text-slate-400">University of Michigan</p>
+              <h4 class="font-bold text-xs text-white leading-snug">Data Science in Python</h4>
+              <p class="text-[11px] text-slate-400 mt-0.5 font-normal">University of Michigan</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-400">
-            <span>Kimlik: <span class="text-slate-300">GSAXB5SQ2KY4</span></span>
-            <span class="text-emerald-400">Doğrulandı</span>
+          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[10px] text-slate-400">
+            <span>ID: <span class="text-slate-300">GSAXB5SQ2KY4</span></span>
+            <span class="text-emerald-400 font-medium">Doğrulandı</span>
           </div>
         </div>
 
-        <!-- 6. Stanford AI in Healthcare -->
-        <div class="cert-card glass-card p-5 rounded-xl flex flex-col justify-between" data-category="ai">
-          <div class="flex items-start gap-3.5 mb-3">
-            <div class="w-10 h-10 rounded-lg bg-red-800/10 border border-red-500/30 flex items-center justify-center text-red-400 text-lg flex-shrink-0">
-              <i class="fa-solid fa-notes-medical"></i>
+        <!-- Stanford -->
+        <div class="cert-card glass-panel p-4 rounded-xl flex flex-col justify-between" data-category="ai">
+          <div class="flex items-start gap-3 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-red-800/10 border border-red-500/20 flex items-center justify-center text-red-400 text-sm flex-shrink-0">
+              <i class="fa-solid fa-notes-medical" aria-hidden="true"></i>
             </div>
             <div>
-              <h4 class="font-bold text-sm text-white">AI in Healthcare</h4>
-              <p class="text-xs text-slate-400">Stanford University</p>
+              <h4 class="font-bold text-xs text-white leading-snug">AI in Healthcare</h4>
+              <p class="text-[11px] text-slate-400 mt-0.5 font-normal">Stanford University</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-400">
-            <span>Kimlik: <span class="text-slate-300">USSMWJWJG9VW</span></span>
-            <span class="text-emerald-400">Doğrulandı</span>
+          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[10px] text-slate-400">
+            <span>ID: <span class="text-slate-300">USSMWJWJG9VW</span></span>
+            <span class="text-emerald-400 font-medium">Doğrulandı</span>
           </div>
         </div>
 
-        <!-- 7. Microsoft C# Programming -->
-        <div class="cert-card glass-card p-5 rounded-xl flex flex-col justify-between" data-category="cloud">
-          <div class="flex items-start gap-3.5 mb-3">
-            <div class="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 text-lg flex-shrink-0">
-              <i class="fa-brands fa-microsoft"></i>
+        <!-- Microsoft C# -->
+        <div class="cert-card glass-panel p-4 rounded-xl flex flex-col justify-between" data-category="cloud">
+          <div class="flex items-start gap-3 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 text-sm flex-shrink-0">
+              <i class="fa-brands fa-microsoft" aria-hidden="true"></i>
             </div>
             <div>
-              <h4 class="font-bold text-sm text-white">C# Programming Fundamentals and Dev</h4>
-              <p class="text-xs text-slate-400">Microsoft</p>
+              <h4 class="font-bold text-xs text-white leading-snug">C# Programming Fundamentals</h4>
+              <p class="text-[11px] text-slate-400 mt-0.5 font-normal">Microsoft</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-400">
-            <span>Kimlik: <span class="text-slate-300">O8GNM7W15XTL</span></span>
-            <span class="text-emerald-400">Doğrulandı</span>
+          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[10px] text-slate-400">
+            <span>ID: <span class="text-slate-300">O8GNM7W15XTL</span></span>
+            <span class="text-emerald-400 font-medium">Doğrulandı</span>
           </div>
         </div>
 
-        <!-- 8. Microsoft SQL Foundations -->
-        <div class="cert-card glass-card p-5 rounded-xl flex flex-col justify-between" data-category="ai">
-          <div class="flex items-start gap-3.5 mb-3">
-            <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-lg flex-shrink-0">
-              <i class="fa-solid fa-database"></i>
+        <!-- Microsoft SQL -->
+        <div class="cert-card glass-panel p-4 rounded-xl flex flex-col justify-between" data-category="ai">
+          <div class="flex items-start gap-3 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-sm flex-shrink-0">
+              <i class="fa-solid fa-database" aria-hidden="true"></i>
             </div>
             <div>
-              <h4 class="font-bold text-sm text-white">SQL Foundations</h4>
-              <p class="text-xs text-slate-400">Microsoft</p>
+              <h4 class="font-bold text-xs text-white leading-snug">SQL Foundations</h4>
+              <p class="text-[11px] text-slate-400 mt-0.5 font-normal">Microsoft</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-400">
-            <span>Kimlik: <span class="text-slate-300">BSZH2Y1JBLCT</span></span>
-            <span class="text-emerald-400">Doğrulandı</span>
+          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[10px] text-slate-400">
+            <span>ID: <span class="text-slate-300">BSZH2Y1JBLCT</span></span>
+            <span class="text-emerald-400 font-medium">Doğrulandı</span>
           </div>
         </div>
 
-        <!-- 9. IBM DevOps -->
-        <div class="cert-card glass-card p-5 rounded-xl flex flex-col justify-between" data-category="cloud">
-          <div class="flex items-start gap-3.5 mb-3">
-            <div class="w-10 h-10 rounded-lg bg-sky-600/10 border border-sky-600/30 flex items-center justify-center text-sky-400 text-base flex-shrink-0 font-bold font-mono">
+        <!-- IBM DevOps -->
+        <div class="cert-card glass-panel p-4 rounded-xl flex flex-col justify-between" data-category="cloud">
+          <div class="flex items-start gap-3 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-sky-600/10 border border-sky-600/20 flex items-center justify-center text-sky-400 text-xs flex-shrink-0 font-bold">
               IBM
             </div>
             <div>
-              <h4 class="font-bold text-sm text-white">Introduction to DevOps</h4>
-              <p class="text-xs text-slate-400">IBM</p>
+              <h4 class="font-bold text-xs text-white leading-snug">Introduction to DevOps</h4>
+              <p class="text-[11px] text-slate-400 mt-0.5 font-normal">IBM</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-400">
-            <span>Kimlik: <span class="text-slate-300">TBJ1N2D5P79N</span></span>
-            <span class="text-emerald-400">Doğrulandı</span>
+          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[10px] text-slate-400">
+            <span>ID: <span class="text-slate-300">TBJ1N2D5P79N</span></span>
+            <span class="text-emerald-400 font-medium">Doğrulandı</span>
           </div>
         </div>
 
-        <!-- 10. IBM Core 1 Hardware and Network -->
-        <div class="cert-card glass-card p-5 rounded-xl flex flex-col justify-between" data-category="sec-sys">
-          <div class="flex items-start gap-3.5 mb-3">
-            <div class="w-10 h-10 rounded-lg bg-cyan-600/10 border border-cyan-600/30 flex items-center justify-center text-cyan-400 text-base flex-shrink-0 font-bold font-mono">
+        <!-- IBM Core 1 -->
+        <div class="cert-card glass-panel p-4 rounded-xl flex flex-col justify-between" data-category="sec-sys">
+          <div class="flex items-start gap-3 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-cyan-600/10 border border-cyan-600/20 flex items-center justify-center text-cyan-400 text-xs flex-shrink-0 font-bold">
               IBM
             </div>
             <div>
-              <h4 class="font-bold text-sm text-white">Core 1: Hardware & Network Troubleshooting</h4>
-              <p class="text-xs text-slate-400">IBM</p>
+              <h4 class="font-bold text-xs text-white leading-snug">Hardware & Network Troubleshooting</h4>
+              <p class="text-[11px] text-slate-400 mt-0.5 font-normal">IBM</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-400">
-            <span>Kimlik: <span class="text-slate-300">4SPLT5VU2XXC</span></span>
-            <span class="text-emerald-400">Doğrulandı</span>
-          </div>
-        </div>
-
-        <!-- 11. Google Foundations of Cybersecurity -->
-        <div class="cert-card glass-card p-5 rounded-xl flex flex-col justify-between" data-category="sec-sys">
-          <div class="flex items-start gap-3.5 mb-3">
-            <div class="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-lg flex-shrink-0">
-              <i class="fa-brands fa-google"></i>
-            </div>
-            <div>
-              <h4 class="font-bold text-sm text-white">Foundations of Cybersecurity</h4>
-              <p class="text-xs text-slate-400">Google</p>
-            </div>
-          </div>
-          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-400">
-            <span>Kimlik: <span class="text-slate-300">JG4HUCJF76W5</span></span>
-            <span class="text-emerald-400">Doğrulandı</span>
+          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[10px] text-slate-400">
+            <span>ID: <span class="text-slate-300">4SPLT5VU2XXC</span></span>
+            <span class="text-emerald-400 font-medium">Doğrulandı</span>
           </div>
         </div>
 
-        <!-- 12. Google Introduction to AI -->
-        <div class="cert-card glass-card p-5 rounded-xl flex flex-col justify-between" data-category="ai">
-          <div class="flex items-start gap-3.5 mb-3">
-            <div class="w-10 h-10 rounded-lg bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-400 text-lg flex-shrink-0">
-              <i class="fa-brands fa-google"></i>
+        <!-- Google Cybersecurity -->
+        <div class="cert-card glass-panel p-4 rounded-xl flex flex-col justify-between" data-category="sec-sys">
+          <div class="flex items-start gap-3 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-sm flex-shrink-0">
+              <i class="fa-brands fa-google" aria-hidden="true"></i>
             </div>
             <div>
-              <h4 class="font-bold text-sm text-white">Introduction to AI</h4>
-              <p class="text-xs text-slate-400">Google</p>
+              <h4 class="font-bold text-xs text-white leading-snug">Foundations of Cybersecurity</h4>
+              <p class="text-[11px] text-slate-400 mt-0.5 font-normal">Google</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-400">
-            <span>Kimlik: <span class="text-slate-300">59G7ILUWHN4U</span></span>
-            <span class="text-emerald-400">Doğrulandı</span>
+          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[10px] text-slate-400">
+            <span>ID: <span class="text-slate-300">JG4HUCJF76W5</span></span>
+            <span class="text-emerald-400 font-medium">Doğrulandı</span>
           </div>
         </div>
 
-        <!-- 13. Cisco C++ Essentials -->
-        <div class="cert-card glass-card p-5 rounded-xl flex flex-col justify-between" data-category="sec-sys">
-          <div class="flex items-start gap-3.5 mb-3">
-            <div class="w-10 h-10 rounded-lg bg-teal-500/10 border border-teal-500/30 flex items-center justify-center text-teal-400 text-lg flex-shrink-0">
-              <i class="fa-solid fa-code"></i>
+        <!-- Google AI -->
+        <div class="cert-card glass-panel p-4 rounded-xl flex flex-col justify-between" data-category="ai">
+          <div class="flex items-start gap-3 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 text-sm flex-shrink-0">
+              <i class="fa-brands fa-google" aria-hidden="true"></i>
             </div>
             <div>
-              <h4 class="font-bold text-sm text-white">C++ Essentials 1</h4>
-              <p class="text-xs text-slate-400">Cisco</p>
+              <h4 class="font-bold text-xs text-white leading-snug">Introduction to AI</h4>
+              <p class="text-[11px] text-slate-400 mt-0.5 font-normal">Google</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-400">
+          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[10px] text-slate-400">
+            <span>ID: <span class="text-slate-300">59G7ILUWHN4U</span></span>
+            <span class="text-emerald-400 font-medium">Doğrulandı</span>
+          </div>
+        </div>
+
+        <!-- Cisco C++ -->
+        <div class="cert-card glass-panel p-4 rounded-xl flex flex-col justify-between" data-category="sec-sys">
+          <div class="flex items-start gap-3 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-teal-400 text-sm flex-shrink-0">
+              <i class="fa-solid fa-code" aria-hidden="true"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-xs text-white leading-snug">C++ Essentials 1</h4>
+              <p class="text-[11px] text-slate-400 mt-0.5 font-normal">Cisco</p>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[10px] text-slate-400">
             <span>Tarih: <span class="text-slate-300">Mar 2026</span></span>
-            <span class="text-emerald-400">Doğrulandı</span>
+            <span class="text-emerald-400 font-medium">Doğrulandı</span>
           </div>
         </div>
 
-        <!-- 14. Cisco Cybersecurity -->
-        <div class="cert-card glass-card p-5 rounded-xl flex flex-col justify-between" data-category="sec-sys">
-          <div class="flex items-start gap-3.5 mb-3">
-            <div class="w-10 h-10 rounded-lg bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 text-lg flex-shrink-0">
-              <i class="fa-solid fa-shield-halved"></i>
+        <!-- Cisco Cyber -->
+        <div class="cert-card glass-panel p-4 rounded-xl flex flex-col justify-between" data-category="sec-sys">
+          <div class="flex items-start gap-3 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-sm flex-shrink-0">
+              <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
             </div>
             <div>
-              <h4 class="font-bold text-sm text-white">Introduction to Cybersecurity</h4>
-              <p class="text-xs text-slate-400">Cisco</p>
+              <h4 class="font-bold text-xs text-white leading-snug">Introduction to Cybersecurity</h4>
+              <p class="text-[11px] text-slate-400 mt-0.5 font-normal">Cisco</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-400">
+          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[10px] text-slate-400">
             <span>Tarih: <span class="text-slate-300">Mar 2026</span></span>
-            <span class="text-emerald-400">Doğrulandı</span>
+            <span class="text-emerald-400 font-medium">Doğrulandı</span>
           </div>
         </div>
 
-        <!-- 15. BTK Akademi C Programming -->
-        <div class="cert-card glass-card p-5 rounded-xl flex flex-col justify-between" data-category="sec-sys">
-          <div class="flex items-start gap-3.5 mb-3">
-            <div class="w-10 h-10 rounded-lg bg-blue-700/10 border border-blue-600/30 flex items-center justify-center text-blue-400 text-lg flex-shrink-0">
-              <i class="fa-solid fa-terminal"></i>
+        <!-- BTK Akademi -->
+        <div class="cert-card glass-panel p-4 rounded-xl flex flex-col justify-between" data-category="sec-sys">
+          <div class="flex items-start gap-3 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-blue-700/10 border border-blue-600/20 flex items-center justify-center text-blue-400 text-sm flex-shrink-0">
+              <i class="fa-solid fa-terminal" aria-hidden="true"></i>
             </div>
             <div>
-              <h4 class="font-bold text-sm text-white">C Programming Language</h4>
-              <p class="text-xs text-slate-400">BTK Akademi</p>
+              <h4 class="font-bold text-xs text-white leading-snug">C Programming Language</h4>
+              <p class="text-[11px] text-slate-400 mt-0.5 font-normal">BTK Akademi</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-400">
-            <span>Kimlik: <span class="text-slate-300">AJaSdKbM8g</span></span>
-            <span class="text-emerald-400">Doğrulandı</span>
+          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[10px] text-slate-400">
+            <span>ID: <span class="text-slate-300">AJaSdKbM8g</span></span>
+            <span class="text-emerald-400 font-medium">Doğrulandı</span>
           </div>
         </div>
 
-        <!-- 16. Toptalent.co İş Bankası ProSchool -->
-        <div class="cert-card glass-card p-5 rounded-xl flex flex-col justify-between" data-category="cloud">
-          <div class="flex items-start gap-3.5 mb-3">
-            <div class="w-10 h-10 rounded-lg bg-pink-500/10 border border-pink-500/30 flex items-center justify-center text-pink-400 text-lg flex-shrink-0">
-              <i class="fa-solid fa-briefcase"></i>
+        <!-- ProSchool -->
+        <div class="cert-card glass-panel p-4 rounded-xl flex flex-col justify-between" data-category="cloud">
+          <div class="flex items-start gap-3 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400 text-sm flex-shrink-0">
+              <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
             </div>
             <div>
-              <h4 class="font-bold text-sm text-white">İş Bankası ProSchool</h4>
-              <p class="text-xs text-slate-400">Toptalent.co</p>
+              <h4 class="font-bold text-xs text-white leading-snug">İş Bankası ProSchool</h4>
+              <p class="text-[11px] text-slate-400 mt-0.5 font-normal">Toptalent.co</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-400">
-            <span>Kimlik: <span class="text-slate-300">50528</span></span>
-            <span class="text-emerald-400">Doğrulandı</span>
+          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[10px] text-slate-400">
+            <span>ID: <span class="text-slate-300">50528</span></span>
+            <span class="text-emerald-400 font-medium">Doğrulandı</span>
           </div>
         </div>
       </div>
 
-      <!-- Daha Fazla / Daha Az Göster Butonu -->
-      <div class="mt-8 text-center" id="load-more-container">
-        <button onclick="toggleCertVisibility()" id="toggle-certs-btn" class="px-6 py-3 bg-slate-900/90 hover:bg-slate-800 text-sky-400 hover:text-white border border-slate-700/80 hover:border-sky-500/50 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 shadow-lg inline-flex items-center gap-2">
+      <!-- Genişlet Butonu -->
+      <div class="mt-6 text-center reveal-up" id="load-more-container">
+        <button onclick="toggleCertVisibility()" id="toggle-certs-btn" aria-expanded="false" class="px-4 py-2 bg-slate-900/80 hover:bg-slate-800 text-sky-400 hover:text-white border border-slate-700/60 rounded-lg text-xs font-medium tracking-wide transition-all inline-flex items-center gap-2">
           <span>Tüm Lisans & Sertifikaları Gör (+10)</span>
-          <i class="fa-solid fa-chevron-down text-xs transition-transform duration-300" id="toggle-icon"></i>
+          <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-300" id="toggle-icon" aria-hidden="true"></i>
         </button>
       </div>
     </section>
 
     <!-- Son Teknik Yazılar -->
-    <section id="articles" class="py-20 px-6 max-w-5xl mx-auto">
-      <div class="flex justify-between items-end mb-10">
+    <section id="articles" class="section py-16 px-6 max-w-5xl mx-auto">
+      <div class="flex justify-between items-end mb-8 reveal-up">
         <div>
-          <h2 class="text-2xl sm:text-3xl font-bold text-white flex items-center gap-3">
+          <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2.5 tracking-tight">
             <span class="section-indicator"></span> Son Teknik Yazılarım
           </h2>
-          <p class="text-slate-400 text-sm mt-1">Geliştirme notlarımı ve mühendislik çıkarımlarımı paylaştığım içerikler</p>
+          <p class="text-slate-400 text-xs mt-1 font-normal">Mühendislik çıkarımları, mimari tasarım ve geliştirme notları</p>
         </div>
-        <a href="https://medium.com/@berkeozbey" target="_blank" class="text-sm font-semibold text-blue-400 hover:text-blue-300 transition flex items-center gap-1.5">
-          Tümünü Gör <i class="fa-solid fa-arrow-right text-xs"></i>
+        <a href="https://medium.com/@berkeozbey" target="_blank" aria-label="Medium Profili" class="text-xs font-semibold text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1 px-2.5 py-1 bg-blue-500/10 rounded-md">
+          Tümünü Gör <i class="fa-solid fa-arrow-right text-[10px]" aria-hidden="true"></i>
         </a>
       </div>
       
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- 1. Yazı (C Öğrenmek) -->
-        <div class="glass-card p-6 sm:p-8 rounded-2xl border border-slate-700/60 hover:border-blue-500/50 group relative overflow-hidden flex flex-col justify-between">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- 1. Yazı -->
+        <article class="glass-panel p-5 rounded-xl flex flex-col justify-between group reveal-up">
           <div>
-            <div class="flex items-center gap-3 mb-3">
-              <span class="px-2.5 py-1 text-[11px] font-bold text-teal-400 bg-teal-500/10 rounded-md border border-teal-500/20">C PROGRAMLAMA</span>
-              <span class="text-xs text-slate-500"><i class="fa-regular fa-clock mr-1"></i> Teknik İnceleme</span>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2 py-0.5 text-[9px] font-semibold text-teal-400 bg-teal-500/10 rounded border border-teal-500/20">DÜŞÜK SEVİYE PROGRAMLAMA</span>
+              <span class="text-[11px] text-slate-500">Medium Yazısı</span>
             </div>
-            <h3 class="text-lg sm:text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">
-              <a href="https://medium.com/@berkeozbey/c-%C3%B6%C4%9Frenmek-bana-kod-yazmaktan-daha-fazlas%C4%B1n%C4%B1-%C3%B6%C4%9Fretti-26c0bd52189c" target="_blank">
-                C Öğrenmek Bana Kod Yazmaktan Daha Fazlasını Öğretti
-              </a>
+            <h3 class="text-sm font-bold text-white mb-2 group-hover:text-teal-400 transition-colors leading-snug">
+              <a href="https://medium.com/@berkeozbey/c-%C3%B6%C4%9Frenmek-bana-kod-yazmaktan-daha-fazlas%C4%B1n%C4%B1-%C3%B6%C4%9Fretti-26c0bd52189c" target="_blank">C Öğrenmek Bana Kod Yazmaktan Daha Fazlasını Öğretti</a>
             </h3>
-            <p class="text-slate-400 text-sm sm:text-base leading-relaxed mb-6">
-              Bellek yönetimi, düşük seviyeli işlemler ve algoritmik düşünce yapısının modern yazılım geliştirme vizyonuna olan derin etkileri üzerine notlarım.
+            <p class="text-slate-400 text-xs leading-relaxed mb-4 font-normal">
+              Bellek yönetimi, işaretçiler (pointers) ve algoritmik düşünce yapısının modern üst seviye yazılım vizyonuna etkileri üzerine çıkarımlarım.
             </p>
           </div>
-          <a href="https://medium.com/@berkeozbey/c-%C3%B6%C4%9Frenmek-bana-kod-yazmaktan-daha-fazlas%C4%B1n%C4%B1-%C3%B6%C4%9Fretti-26c0bd52189c" target="_blank" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-400 hover:text-blue-300 transition">
-            Yazıyı Oku <i class="fa-solid fa-arrow-up-right-from-square text-xs group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+          <a href="https://medium.com/@berkeozbey/c-%C3%B6%C4%9Frenmek-bana-kod-yazmaktan-daha-fazlas%C4%B1n%C4%B1-%C3%B6%C4%9Fretti-26c0bd52189c" target="_blank" class="inline-flex items-center gap-1 text-xs font-semibold text-teal-400 hover:text-teal-300 transition-all">
+            Yazıyı İncele <i class="fa-solid fa-arrow-right text-[9px]" aria-hidden="true"></i>
           </a>
-        </div>
+        </article>
 
-        <!-- 2. Yazı (iOS / Swift) -->
-        <div class="glass-card p-6 sm:p-8 rounded-2xl border border-slate-700/60 hover:border-blue-500/50 group relative overflow-hidden flex flex-col justify-between">
+        <!-- 2. Yazı -->
+        <article class="glass-panel p-5 rounded-xl flex flex-col justify-between group reveal-up">
           <div>
-            <div class="flex items-center gap-3 mb-3">
-              <span class="px-2.5 py-1 text-[11px] font-bold text-blue-400 bg-blue-500/10 rounded-md border border-blue-500/20">SWIFT & IOS</span>
-              <span class="text-xs text-slate-500"><i class="fa-regular fa-clock mr-1"></i> Okuma Notu</span>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2 py-0.5 text-[9px] font-semibold text-blue-400 bg-blue-500/10 rounded border border-blue-500/20">APPLE EKOSİSTEMİ</span>
+              <span class="text-[11px] text-slate-500">Medium Yazısı</span>
             </div>
-            <h3 class="text-lg sm:text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">
-              <a href="https://medium.com/@berkeozbey/727a89bc70ac" target="_blank">
-                Apple Ekosistemi, Swift ve Xcode ile Mobil Geliştirmeye Giriş Notları
-              </a>
+            <h3 class="text-sm font-bold text-white mb-2 group-hover:text-blue-400 transition-colors leading-snug">
+              <a href="https://medium.com/@berkeozbey/727a89bc70ac" target="_blank">Apple Ekosistemi, Swift ve Xcode Notları</a>
             </h3>
-            <p class="text-slate-400 text-sm sm:text-base leading-relaxed mb-6">
-              Xcode geliştirme ortamı, Swift tip güvenliği, Auto Layout mimarisi ve test süreçlerinde karşılaşılan temel mühendislik pratikleri üzerine çıkarımlar.
+            <p class="text-slate-400 text-xs leading-relaxed mb-4 font-normal">
+              Xcode ortamı, Swift tip güvenliği, Auto Layout hiyerarşisi ve mobil mimari kalıpları üzerine pratik mühendislik pratikleri.
             </p>
           </div>
-          <a href="https://medium.com/@berkeozbey/727a89bc70ac" target="_blank" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-400 hover:text-blue-300 transition">
-            Yazıyı Oku <i class="fa-solid fa-arrow-up-right-from-square text-xs group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+          <a href="https://medium.com/@berkeozbey/727a89bc70ac" target="_blank" class="inline-flex items-center gap-1 text-xs font-semibold text-blue-400 hover:text-blue-300 transition-all">
+            Yazıyı İncele <i class="fa-solid fa-arrow-right text-[9px]" aria-hidden="true"></i>
           </a>
-        </div>
+        </article>
       </div>
     </section>
 
-    <!-- Footer / İletişim -->
-    <footer id="contact" class="py-16 border-t border-slate-800/80 bg-[#04060b]/90 backdrop-blur-md">
-      <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-6 text-sm text-slate-400">
-        <div class="flex items-center gap-3">
-          <img src="logo.png" alt="BRK Logo" class="w-6 h-6 object-contain opacity-75">
-          <p>© 2026 Berke Özbey. Tüm hakları saklıdır.</p>
+    <!-- Footer -->
+    <footer id="contact" class="py-10 border-t border-white/[0.06] bg-[#04060b]/90 backdrop-blur-xl relative z-20">
+      <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-400 font-normal">
+        <div class="flex items-center gap-2">
+          <img src="logo.png" alt="BRK Logo" class="w-4 h-4 object-contain opacity-70" style="mix-blend-mode: screen;">
+          <p>&copy; 2026 Berke Özbey. Tüm hakları saklıdır.</p>
         </div>
-        <div class="flex space-x-6 text-base items-center">
-          <button onclick="openContactModal()" class="hover:text-blue-400 transition" title="E-posta Gönder">
-            <i class="fa-regular fa-envelope text-lg"></i>
+        <div class="flex space-x-5 text-sm items-center">
+          <button onclick="openContactModal()" aria-label="İletişim" class="hover:text-blue-400 transition-colors">
+            <i class="fa-regular fa-envelope text-base" aria-hidden="true"></i>
           </button>
-          <a href="https://medium.com/@berkeozbey" target="_blank" class="hover:text-blue-400 transition"><i class="fa-brands fa-medium"></i></a>
-          <a href="https://www.linkedin.com/in/berkeözbey/" target="_blank" class="hover:text-blue-400 transition"><i class="fa-brands fa-linkedin"></i></a>
-          <a href="https://github.com/berkeozby" target="_blank" class="hover:text-blue-400 transition"><i class="fa-brands fa-github"></i></a>
+          <a href="https://medium.com/@berkeozbey" target="_blank" aria-label="Medium" class="hover:text-blue-400 transition-colors"><i class="fa-brands fa-medium text-base" aria-hidden="true"></i></a>
+          <a href="https://www.linkedin.com/in/berkeözbey/" target="_blank" aria-label="LinkedIn" class="hover:text-blue-400 transition-colors"><i class="fa-brands fa-linkedin text-base" aria-hidden="true"></i></a>
+          <a href="https://github.com/berkeozby" target="_blank" aria-label="GitHub" class="hover:text-blue-400 transition-colors"><i class="fa-brands fa-github text-base" aria-hidden="true"></i></a>
         </div>
       </div>
     </footer>
   </main>
 
-  <!-- İletişim / E-Posta Popup Modalı -->
-  <div id="contact-modal" class="fixed inset-0 bg-black/75 backdrop-blur-md z-[99990] flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300" onclick="closeContactModal(event)">
-    <div class="glass-card bg-[#0b0f19]/95 border border-slate-700/80 rounded-2xl w-full max-w-md p-6 sm:p-8 text-center relative shadow-2xl" onclick="event.stopPropagation()">
-      <button onclick="closeContactModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition">
-        <i class="fa-solid fa-xmark text-lg"></i>
+  <!-- İletişim Modalı -->
+  <div id="contact-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" class="fixed inset-0 bg-black/85 backdrop-blur-md z-[99990] flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300" onclick="closeContactModal(event)">
+    <div class="glass-panel bg-[#0b0f19]/95 rounded-2xl w-full max-w-sm p-6 text-center relative shadow-2xl" onclick="event.stopPropagation()">
+      <button onclick="closeContactModal()" aria-label="Pencereyi Kapat" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors bg-slate-800/60 w-7 h-7 rounded-full flex items-center justify-center">
+        <i class="fa-solid fa-xmark text-xs" aria-hidden="true"></i>
       </button>
 
-      <div class="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-sky-400 flex items-center justify-center text-2xl mx-auto mb-4 shadow-[0_0_20px_rgba(56,189,248,0.2)]">
-        <i class="fa-regular fa-envelope"></i>
+      <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 text-sky-400 flex items-center justify-center text-xl mx-auto mb-3">
+        <i class="fa-regular fa-envelope" aria-hidden="true"></i>
       </div>
 
-      <h3 class="text-xl font-bold text-white mb-2">İletişime Geçin</h3>
-      <p class="text-xs sm:text-sm text-slate-400 mb-6">Projeler, iş birlikleri ve mühendislik konuları için doğrudan e-posta gönderebilirsiniz.</p>
+      <h3 id="modal-title" class="text-base font-bold text-white mb-1">İletişime Geçin</h3>
+      <p class="text-xs text-slate-400 mb-5 font-normal">Teknik iş birlikleri ve mühendislik projeleri için doğrudan mesaj gönderebilirsiniz.</p>
 
-      <div class="bg-slate-900/90 border border-slate-700/80 rounded-xl p-3.5 flex items-center justify-between gap-3 mb-6">
-        <span class="text-sky-400 font-mono text-sm sm:text-base select-all font-semibold" id="email-address">berke@post.com</span>
-        <button onclick="copyEmail()" id="copy-btn" class="px-3 py-1.5 bg-blue-600/30 hover:bg-blue-600/50 text-sky-300 border border-blue-500/40 rounded-lg text-xs font-mono transition flex items-center gap-1.5">
+      <div class="bg-slate-900/90 border border-slate-700/60 rounded-lg p-2.5 flex items-center justify-between gap-2 mb-4">
+        <span class="text-sky-400 text-xs select-all font-semibold" id="email-address">berke@post.com</span>
+        <button onclick="copyEmail()" id="copy-btn" aria-label="E-posta Kopyala" class="px-2 py-1 bg-blue-600/20 hover:bg-blue-600/40 text-sky-300 border border-blue-500/30 rounded text-[10px] transition-colors flex items-center gap-1 font-medium">
           <i class="fa-regular fa-copy"></i> Kopyala
         </button>
       </div>
 
-      <div class="flex gap-3">
-        <a href="mailto:berke@post.com" class="flex-1 py-3 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-xl text-sm transition-all shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2">
-          <i class="fa-solid fa-paper-plane"></i> Mail Uygulamasında Aç
+      <div class="flex gap-2">
+        <a href="mailto:berke@post.com" class="flex-1 py-2 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-lg text-xs transition-all shadow-[0_0_15px_rgba(37,99,235,0.3)] flex items-center justify-center gap-1.5">
+          <i class="fa-solid fa-paper-plane text-xs" aria-hidden="true"></i> Mail Uygulamasında Aç
         </a>
       </div>
     </div>
   </div>
 
+  <!-- Scriptler -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+
   <script>
-    // Sertifika Filtreleme & Akıllı Genişleme Mantığı
+    // 1. GSAP ScrollTrigger & ScrollSpy
+    document.addEventListener("DOMContentLoaded", () => {
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Kart Fade-In
+      gsap.utils.toArray(".reveal-up").forEach((elem) => {
+        gsap.to(elem, {
+          scrollTrigger: {
+            trigger: elem,
+            start: "top 88%",
+            toggleActions: "play none none reverse"
+          },
+          y: 0,
+          opacity: 1,
+          duration: 0.65,
+          ease: "power2.out"
+        });
+      });
+
+      // ScrollSpy
+      const sections = document.querySelectorAll('.section');
+      const navLinks = document.querySelectorAll('.nav-link');
+
+      window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          if (pageYOffset >= (sectionTop - 160)) {
+            current = section.getAttribute('id');
+          }
+        });
+
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href').includes(current)) {
+            link.classList.add('active');
+          }
+        });
+      }, { passive: true });
+
+      // Typed.js
+      try {
+        new Typed('#typed-text', {
+          strings: [
+            'iOS mimarilerine dönüştürüyorum.',
+            'yazılım sistemlerine dönüştürüyorum.',
+            'mühendislik çözümlerine dönüştürüyorum.'
+          ],
+          typeSpeed: 38,
+          backSpeed: 18,
+          backDelay: 2200,
+          loop: true,
+          smartBackspace: true
+        });
+      } catch(e) {
+        console.error("Typed.js initialization failed", e);
+      }
+
+      // 3D Siber Dünya Başlat
+      initDigitalEarth();
+    });
+
+    // 2. WebGL Deneyimi: Siber Dünya & Veri Yörüngeleri (Digital Cyber Earth)
+    function initDigitalEarth() {
+      const canvas = document.getElementById('webgl-canvas');
+      const scene = new THREE.Scene();
+      
+      const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 100);
+      camera.position.set(0, 0, 7.5);
+
+      const renderer = new THREE.WebGLRenderer({ 
+        canvas: canvas, 
+        alpha: true, 
+        antialias: true,
+        powerPreference: "high-performance"
+      });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      // Işık Mimarisi
+      const ambientLight = new THREE.AmbientLight(0x061124, 2.4);
+      scene.add(ambientLight);
+
+      const directionalLight = new THREE.DirectionalLight(0x38bdf8, 3.2);
+      directionalLight.position.set(5, 5, 5);
+      scene.add(directionalLight);
+
+      const rimLight = new THREE.PointLight(0x34d399, 2.5, 25);
+      rimLight.position.set(-6, -4, 2);
+      scene.add(rimLight);
+
+      const globeGroup = new THREE.Group();
+      scene.add(globeGroup);
+
+      // A. Koyu Okyanus Küresi (İç Çekirdek)
+      const coreRadius = 1.35;
+      const coreGeo = new THREE.SphereGeometry(coreRadius, 48, 48);
+      const coreMat = new THREE.MeshStandardMaterial({
+        color: 0x050d1a,
+        roughness: 0.6,
+        metalness: 0.8
+      });
+      const coreGlobe = new THREE.Mesh(coreGeo, coreMat);
+      globeGroup.add(coreGlobe);
+
+      // B. Siber Koordinat / Enlem-Boylam Izgarası
+      const gridGeo = new THREE.SphereGeometry(coreRadius + 0.015, 28, 28);
+      const gridMat = new THREE.MeshBasicMaterial({
+        color: 0x1e3a8a,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.28
+      });
+      const gridGlobe = new THREE.Mesh(gridGeo, gridMat);
+      globeGroup.add(gridGlobe);
+
+      // C. Veri Parçacıkları (Dünya Yüzey Noktaları)
+      const dotCount = 650;
+      const dotGeo = new THREE.BufferGeometry();
+      const dotPositions = new Float32Array(dotCount * 3);
+
+      for (let i = 0; i < dotCount * 3; i += 3) {
+        const u = Math.random();
+        const v = Math.random();
+        const theta = u * 2.0 * Math.PI;
+        const phi = Math.acos(2.0 * v - 1.0);
+        const r = coreRadius + 0.035;
+
+        dotPositions[i] = r * Math.sin(phi) * Math.cos(theta);
+        dotPositions[i + 1] = r * Math.sin(phi) * Math.sin(theta);
+        dotPositions[i + 2] = r * Math.cos(phi);
+      }
+
+      dotGeo.setAttribute('position', new THREE.BufferAttribute(dotPositions, 3));
+      const dotMat = new THREE.PointsMaterial({
+        size: 0.022,
+        color: 0x38bdf8,
+        transparent: true,
+        opacity: 0.85
+      });
+      const globeDots = new THREE.Points(dotGeo, dotMat);
+      globeGroup.add(globeDots);
+
+      // D. Lazer Yörünge Halkaları (Satellite & Network Rings)
+      const ring1Geo = new THREE.TorusGeometry(2.0, 0.006, 16, 120);
+      const ring1Mat = new THREE.MeshBasicMaterial({
+        color: 0x38bdf8,
+        transparent: true,
+        opacity: 0.45
+      });
+      const orbitRing1 = new THREE.Mesh(ring1Geo, ring1Mat);
+      orbitRing1.rotation.x = Math.PI / 2.3;
+      orbitRing1.rotation.y = Math.PI / 8;
+      globeGroup.add(orbitRing1);
+
+      const ring2Geo = new THREE.TorusGeometry(2.2, 0.004, 16, 120);
+      const ring2Mat = new THREE.MeshBasicMaterial({
+        color: 0x34d399,
+        transparent: true,
+        opacity: 0.35
+      });
+      const orbitRing2 = new THREE.Mesh(ring2Geo, ring2Mat);
+      orbitRing2.rotation.x = -Math.PI / 3;
+      orbitRing2.rotation.y = -Math.PI / 6;
+      globeGroup.add(orbitRing2);
+
+      // E. Atmosferik Arka Plan Tozları
+      const bgCount = 280;
+      const bgGeo = new THREE.BufferGeometry();
+      const bgPositions = new Float32Array(bgCount * 3);
+
+      for (let i = 0; i < bgCount * 3; i += 3) {
+        const r = 2.4 + Math.random() * 2.2;
+        const theta = Math.random() * 2 * Math.PI;
+        const phi = Math.acos(2 * Math.random() - 1);
+
+        bgPositions[i] = r * Math.sin(phi) * Math.cos(theta);
+        bgPositions[i + 1] = r * Math.sin(phi) * Math.sin(theta);
+        bgPositions[i + 2] = r * Math.cos(phi);
+      }
+
+      bgGeo.setAttribute('position', new THREE.BufferAttribute(bgPositions, 3));
+      const bgMat = new THREE.PointsMaterial({
+        size: 0.016,
+        color: 0x60a5fa,
+        transparent: true,
+        opacity: 0.5
+      });
+      const spaceDust = new THREE.Points(bgGeo, bgMat);
+      globeGroup.add(spaceDust);
+
+      // Ekran Adaptasyonu
+      const handleResponsiveLayout = () => {
+        if (window.innerWidth <= 768) {
+          globeGroup.position.set(0, -1.65, 0);
+          globeGroup.scale.set(0.75, 0.75, 0.75);
+        } else {
+          globeGroup.position.set(2.4, -0.35, 0);
+          globeGroup.scale.set(1.08, 1.08, 1.08);
+        }
+      };
+      handleResponsiveLayout();
+
+      // GSAP ScrollTrigger ile Senkronize Derinleşme
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: "body",
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 1.4
+        }
+      })
+      .to(globeGroup.position, {
+        y: () => (window.innerWidth <= 768 ? 1.4 : 1.8),
+        z: -1.4,
+        ease: "none"
+      }, 0)
+      .to(globeGroup.rotation, {
+        y: Math.PI * 2.8,
+        x: 0.4,
+        ease: "none"
+      }, 0);
+
+      // Fare İnteraksiyonu (Lerp)
+      let targetX = 0, targetY = 0;
+      let currX = 0, currY = 0;
+
+      window.addEventListener('mousemove', (e) => {
+        targetX = (e.clientX / window.innerWidth - 0.5) * 0.4;
+        targetY = (e.clientY / window.innerHeight - 0.5) * 0.4;
+      }, { passive: true });
+
+      let isRunning = true;
+      document.addEventListener('visibilitychange', () => {
+        isRunning = !document.hidden;
+      });
+
+      const clock = new THREE.Clock();
+
+      function renderLoop() {
+        requestAnimationFrame(renderLoop);
+        if (!isRunning) return;
+
+        const dt = clock.getDelta();
+
+        // Dünya Kendi Ekseni Dönüşü
+        coreGlobe.rotation.y += 0.15 * dt;
+        gridGlobe.rotation.y += 0.15 * dt;
+        globeDots.rotation.y += 0.15 * dt;
+
+        orbitRing1.rotation.z += 0.25 * dt;
+        orbitRing2.rotation.z -= 0.2 * dt;
+        spaceDust.rotation.y -= 0.05 * dt;
+
+        // Yumuşak Sönümlü Fare Tepkisi
+        currX += (targetX - currX) * 0.06;
+        currY += (targetY - currY) * 0.06;
+
+        globeGroup.rotation.y += currX * 0.018;
+        globeGroup.rotation.x += currY * 0.018;
+
+        renderer.render(scene, camera);
+      }
+      renderLoop();
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        handleResponsiveLayout();
+        ScrollTrigger.refresh();
+      }, { passive: true });
+    }
+
+    // 3. Sertifika Filtreleme Mantığı
     let isCertsExpanded = false;
     let currentFilter = 'all';
     const INITIAL_LIMIT = 6;
@@ -822,6 +1262,7 @@
       const loadMoreContainer = document.getElementById('load-more-container');
       const toggleBtnText = document.querySelector('#toggle-certs-btn span');
       const toggleIcon = document.getElementById('toggle-icon');
+      const toggleBtn = document.getElementById('toggle-certs-btn');
 
       let matchingCards = [];
 
@@ -852,11 +1293,14 @@
         if (isCertsExpanded) {
           toggleBtnText.innerText = 'Daha Az Göster';
           toggleIcon.classList.add('rotate-180');
+          toggleBtn.setAttribute('aria-expanded', 'true');
         } else {
           toggleBtnText.innerText = `Tüm Lisans & Sertifikaları Gör (+${remainingCount})`;
           toggleIcon.classList.remove('rotate-180');
+          toggleBtn.setAttribute('aria-expanded', 'false');
         }
       }
+      if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
     }
 
     function filterCerts(category, btnElement) {
@@ -874,10 +1318,9 @@
       }
     }
 
-    // Sayfa Yüklendiğinde Sertifika State Başlat
     document.addEventListener('DOMContentLoaded', applyCertDisplay);
 
-    // İletişim Modal Kontrolleri
+    // 4. Modal İletişim Fonksiyonları
     const contactModal = document.getElementById('contact-modal');
 
     function openContactModal() {
@@ -886,6 +1329,7 @@
     }
 
     function closeContactModal(e) {
+      if (e) e.stopPropagation();
       contactModal.classList.add('opacity-0');
       setTimeout(() => contactModal.classList.add('hidden'), 300);
     }
@@ -894,7 +1338,7 @@
       const email = document.getElementById('email-address').innerText;
       navigator.clipboard.writeText(email).then(() => {
         const copyBtn = document.getElementById('copy-btn');
-        copyBtn.innerHTML = '<i class="fa-solid fa-check text-emerald-400"></i> Kopyalandı!';
+        copyBtn.innerHTML = '<i class="fa-solid fa-check text-emerald-400"></i> Kopyalandı';
         setTimeout(() => {
           copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i> Kopyala';
         }, 2000);
@@ -907,188 +1351,14 @@
       }
     });
 
-    // Premium Preloader Geçiş Kontrolü
-    const removePreloader = () => {
+    // 5. Preloader Kapanış (Gelişmiş Sinematik Geçiş)
+    window.addEventListener('load', () => {
       const preloader = document.getElementById('preloader');
       setTimeout(() => {
         if (preloader) {
-          preloader.style.opacity = '0';
-          setTimeout(() => { 
-            preloader.style.visibility = 'hidden'; 
-          }, 800);
+          preloader.classList.add('preloader-hidden');
         }
       }, 500);
-    };
-
-    window.addEventListener('load', removePreloader);
-    setTimeout(removePreloader, 1200);
-
-    // Typed.js
-    try {
-      new Typed('#typed-text', {
-        strings: [
-          'iOS uygulamalarına dönüştürüyorum.',
-          'yazılım sistemlerine dönüştürüyorum.',
-          'çözümlere dönüştürüyorum.'
-        ],
-        typeSpeed: 45,
-        backSpeed: 25,
-        backDelay: 2000,
-        loop: true
-      });
-    } catch(e) {}
-
-    // GSAP ScrollTrigger
-    gsap.registerPlugin(ScrollTrigger);
-
-    // Three.js Kuantum Siber Varlık Sahnesi
-    const canvas = document.getElementById('webgl-canvas');
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.set(0, 0, 7.5);
-
-    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-    const ambientLight = new THREE.AmbientLight(0x0a1020, 2);
-    scene.add(ambientLight);
-
-    const blueLight = new THREE.DirectionalLight(0x38bdf8, 3.5);
-    blueLight.position.set(-5, 5, 5);
-    scene.add(blueLight);
-
-    const tealLight = new THREE.PointLight(0x34d399, 2.5, 20);
-    tealLight.position.set(5, -4, 3);
-    scene.add(tealLight);
-
-    const quantumEntity = new THREE.Group();
-    scene.add(quantumEntity);
-
-    // 1. Koyu Çekirdek
-    const coreGeo = new THREE.SphereGeometry(1.35, 32, 32);
-    const coreMat = new THREE.MeshStandardMaterial({
-      color: 0x050b18,
-      roughness: 0.4,
-      metalness: 0.8
-    });
-    const coreMesh = new THREE.Mesh(coreGeo, coreMat);
-    quantumEntity.add(coreMesh);
-
-    // 2. İkozahedron Kafes
-    const latticeGeo = new THREE.IcosahedronGeometry(1.48, 2);
-    const latticeMat = new THREE.MeshBasicMaterial({
-      color: 0x38bdf8,
-      wireframe: true,
-      transparent: true,
-      opacity: 0.25
-    });
-    const latticeMesh = new THREE.Mesh(latticeGeo, latticeMat);
-    quantumEntity.add(latticeMesh);
-
-    // 3. Parçacık Bulutu
-    const dustCount = 400;
-    const dustGeo = new THREE.BufferGeometry();
-    const dustPos = new Float32Array(dustCount * 3);
-    for (let i = 0; i < dustCount; i++) {
-      const radius = 1.7 + Math.random() * 0.9;
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos((Math.random() * 2) - 1);
-      dustPos[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
-      dustPos[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-      dustPos[i * 3 + 2] = radius * Math.cos(phi);
-    }
-    dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));
-    const dustMat = new THREE.PointsMaterial({
-      size: 0.025,
-      color: 0x60a5fa,
-      transparent: true,
-      opacity: 0.7
-    });
-    const dustMesh = new THREE.Points(dustGeo, dustMat);
-    quantumEntity.add(dustMesh);
-
-    // 4. Çift Yörünge Halkası
-    const ring1Geo = new THREE.TorusGeometry(2.3, 0.012, 16, 80);
-    const ring1Mat = new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.5 });
-    const ring1 = new THREE.Mesh(ring1Geo, ring1Mat);
-    ring1.rotation.x = Math.PI / 2.5;
-    quantumEntity.add(ring1);
-
-    const ring2Geo = new THREE.TorusGeometry(2.5, 0.008, 16, 80);
-    const ring2Mat = new THREE.MeshBasicMaterial({ color: 0x34d399, transparent: true, opacity: 0.35 });
-    const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
-    ring2.rotation.x = -Math.PI / 3;
-    quantumEntity.add(ring2);
-
-    // Konumlandırma
-    const updatePosition = () => {
-      if (window.innerWidth <= 768) {
-        quantumEntity.position.set(0, -2.1, 0.5);
-        quantumEntity.scale.set(0.85, 0.85, 0.85);
-      } else {
-        quantumEntity.position.set(2.4, -2.0, 0);
-        quantumEntity.scale.set(1, 1, 1);
-      }
-    };
-    updatePosition();
-
-    // GSAP ScrollTrigger
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: "body",
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 1.2
-      }
-    })
-    .to(quantumEntity.position, {
-      y: () => (window.innerWidth <= 768 ? 1.8 : 2.2),
-      z: -0.3,
-      ease: "none"
-    }, 0)
-    .to(quantumEntity.rotation, {
-      y: Math.PI * 2,
-      x: 0.5,
-      ease: "none"
-    }, 0);
-
-    // Fare Hareketi
-    let mouseX = 0, mouseY = 0;
-    window.addEventListener('mousemove', (e) => {
-      mouseX = (e.clientX / window.innerWidth - 0.5) * 0.4;
-      mouseY = (e.clientY / window.innerHeight - 0.5) * 0.4;
-    });
-
-    let isPageVisible = true;
-    document.addEventListener('visibilitychange', () => {
-      isPageVisible = !document.hidden;
-    });
-
-    // Animasyon Döngüsü
-    function animate() {
-      requestAnimationFrame(animate);
-      if (!isPageVisible) return;
-      
-      coreMesh.rotation.y += 0.002;
-      latticeMesh.rotation.y -= 0.003;
-      dustMesh.rotation.y += 0.0015;
-      ring1.rotation.z += 0.003;
-      ring2.rotation.z -= 0.002;
-      
-      camera.position.x += (mouseX - camera.position.x) * 0.05;
-      camera.position.y += (-mouseY - camera.position.y) * 0.05;
-      camera.lookAt(scene.position);
-
-      renderer.render(scene, camera);
-    }
-    animate();
-
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      updatePosition();
     });
   </script>
 </body>
