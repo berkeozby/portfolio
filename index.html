@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr" class="scroll-smooth">
+<html lang="tr" class="scroll-smooth text-[110%]">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -110,7 +110,7 @@
       pointer-events: none;
     }
 
-    /* Yenilenmiş Üst Düzey Preloader & Sinematik Açılış */
+    /* Preloader */
     #preloader {
       position: fixed;
       inset: 0;
@@ -178,7 +178,7 @@
     .loader-logo-frame img {
       width: 100%;
       height: 100%;
-      object-contain: contain;
+      object-fit: contain;
       mix-blend-mode: screen;
       filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.6));
     }
@@ -200,7 +200,6 @@
 
     @keyframes logoEntrance {
       0% { opacity: 0; transform: scale(0.75); filter: blur(12px); }
-      50% { opacity: 0.8; }
       100% { opacity: 1; transform: scale(1); filter: blur(0px); }
     }
 
@@ -297,7 +296,7 @@
   <!-- Mühendislik Arka Plan Dokusu -->
   <div class="engineering-grid"></div>
 
-  <!-- Yenilenmiş Sinematik Preloader -->
+  <!-- Preloader -->
   <div id="preloader" aria-hidden="true">
     <div class="loader-stage">
       <div class="loader-radial-ambient"></div>
@@ -312,18 +311,19 @@
   <!-- Three.js Canvas -->
   <canvas id="webgl-canvas" aria-hidden="true"></canvas>
 
-  <!-- Navbar -->
+  <!-- Navbar (Tam Sola ve Tam Sağa Hizalandı) -->
   <nav class="fixed top-0 left-0 w-full bg-[#05070e]/80 backdrop-blur-2xl border-b border-white/[0.06] z-50 transition-all duration-300">
-    <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+    <div class="w-full px-6 sm:px-10 h-14 flex items-center justify-between">
+      <!-- Tam Sola Dayalı Logo ve İsim (Mavi Nokta Kaldırıldı) -->
       <a href="#about" aria-label="Ana Sayfa" class="flex items-center gap-2.5 group">
         <img src="logo.png" alt="BRK Logo" aria-hidden="true" class="w-7 h-7 object-contain transition-transform duration-300 group-hover:scale-105" style="mix-blend-mode: screen;">
         <span class="font-bold text-sm tracking-tight text-white group-hover:text-blue-400 transition whitespace-nowrap">
-          Berke Özbey<span class="text-blue-500">.</span>
+          Berke Özbey
         </span>
       </a>
       
-      <!-- Sağa Dayalı & Bold Butonlar -->
-      <div class="flex items-center space-x-6 sm:space-x-8 text-xs font-bold text-slate-300 ml-auto">
+      <!-- Tam Sağa Dayalı & Bold Butonlar -->
+      <div class="flex items-center space-x-6 sm:space-x-8 text-xs font-bold text-slate-300">
         <a href="#about" class="nav-link hover:text-white transition-colors">Hakkımda</a>
         <a href="#experience" class="nav-link hover:text-white transition-colors">Deneyim</a>
         <a href="#engineering" class="nav-link hover:text-white transition-colors">Mühendislik</a>
@@ -926,8 +926,9 @@
     <!-- Footer -->
     <footer id="contact" class="py-10 border-t border-white/[0.06] bg-[#04060b]/90 backdrop-blur-xl relative z-20">
       <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-400 font-normal">
-        <div class="flex items-center gap-2">
-          <img src="logo.png" alt="BRK Logo" class="w-4 h-4 object-contain opacity-70" style="mix-blend-mode: screen;">
+        <div class="flex items-center gap-3">
+          <!-- Büyütülmüş ve Netleştirilmiş Footer Logosu -->
+          <img src="logo.png" alt="BRK Logo" class="w-7 h-7 object-contain opacity-90" style="mix-blend-mode: screen;">
           <p>&copy; 2026 Berke Özbey. Tüm hakları saklıdır.</p>
         </div>
         <div class="flex space-x-5 text-sm items-center">
@@ -1036,12 +1037,12 @@
         console.error("Typed.js initialization failed", e);
       }
 
-      // 3D Siber Dünya Başlat
-      initDigitalEarth();
+      // Orijinal Parlak ve Canlı Siber Dünyayı Başlat
+      initOriginalCyberEarth();
     });
 
-    // 2. WebGL Deneyimi: Siber Dünya & Veri Yörüngeleri (Digital Cyber Earth)
-    function initDigitalEarth() {
+    // 2. Beğendiğin Orijinal WebGL Siber Dünya & Yörüngeler
+    function initOriginalCyberEarth() {
       const canvas = document.getElementById('webgl-canvas');
       const scene = new THREE.Scene();
       
@@ -1058,44 +1059,44 @@
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
       // Işık Mimarisi
-      const ambientLight = new THREE.AmbientLight(0x061124, 2.4);
+      const ambientLight = new THREE.AmbientLight(0x0a1c38, 2.8);
       scene.add(ambientLight);
 
-      const directionalLight = new THREE.DirectionalLight(0x38bdf8, 3.2);
+      const directionalLight = new THREE.DirectionalLight(0x38bdf8, 3.6);
       directionalLight.position.set(5, 5, 5);
       scene.add(directionalLight);
 
-      const rimLight = new THREE.PointLight(0x34d399, 2.5, 25);
+      const rimLight = new THREE.PointLight(0x34d399, 2.8, 25);
       rimLight.position.set(-6, -4, 2);
       scene.add(rimLight);
 
       const globeGroup = new THREE.Group();
       scene.add(globeGroup);
 
-      // A. Koyu Okyanus Küresi (İç Çekirdek)
+      // A. İç Çekirdek Küresi (Hafif Mavi Yansımalı)
       const coreRadius = 1.35;
       const coreGeo = new THREE.SphereGeometry(coreRadius, 48, 48);
       const coreMat = new THREE.MeshStandardMaterial({
-        color: 0x050d1a,
-        roughness: 0.6,
+        color: 0x07152b,
+        roughness: 0.4,
         metalness: 0.8
       });
       const coreGlobe = new THREE.Mesh(coreGeo, coreMat);
       globeGroup.add(coreGlobe);
 
-      // B. Siber Koordinat / Enlem-Boylam Izgarası
+      // B. Siber Koordinat Izgarası (Parlak Mavi)
       const gridGeo = new THREE.SphereGeometry(coreRadius + 0.015, 28, 28);
       const gridMat = new THREE.MeshBasicMaterial({
-        color: 0x1e3a8a,
+        color: 0x2563eb,
         wireframe: true,
         transparent: true,
-        opacity: 0.28
+        opacity: 0.45
       });
       const gridGlobe = new THREE.Mesh(gridGeo, gridMat);
       globeGroup.add(gridGlobe);
 
-      // C. Veri Parçacıkları (Dünya Yüzey Noktaları)
-      const dotCount = 650;
+      // C. Veri Parçacıkları (Canlı ve Net Yüzey Noktaları)
+      const dotCount = 750;
       const dotGeo = new THREE.BufferGeometry();
       const dotPositions = new Float32Array(dotCount * 3);
 
@@ -1104,7 +1105,7 @@
         const v = Math.random();
         const theta = u * 2.0 * Math.PI;
         const phi = Math.acos(2.0 * v - 1.0);
-        const r = coreRadius + 0.035;
+        const r = coreRadius + 0.04;
 
         dotPositions[i] = r * Math.sin(phi) * Math.cos(theta);
         dotPositions[i + 1] = r * Math.sin(phi) * Math.sin(theta);
@@ -1113,39 +1114,39 @@
 
       dotGeo.setAttribute('position', new THREE.BufferAttribute(dotPositions, 3));
       const dotMat = new THREE.PointsMaterial({
-        size: 0.022,
+        size: 0.026,
         color: 0x38bdf8,
         transparent: true,
-        opacity: 0.85
+        opacity: 0.95
       });
       const globeDots = new THREE.Points(dotGeo, dotMat);
       globeGroup.add(globeDots);
 
-      // D. Lazer Yörünge Halkaları (Satellite & Network Rings)
-      const ring1Geo = new THREE.TorusGeometry(2.0, 0.006, 16, 120);
+      // D. Çift Lazer Yörünge Halkası
+      const ring1Geo = new THREE.TorusGeometry(2.0, 0.007, 16, 120);
       const ring1Mat = new THREE.MeshBasicMaterial({
         color: 0x38bdf8,
         transparent: true,
-        opacity: 0.45
+        opacity: 0.55
       });
       const orbitRing1 = new THREE.Mesh(ring1Geo, ring1Mat);
       orbitRing1.rotation.x = Math.PI / 2.3;
       orbitRing1.rotation.y = Math.PI / 8;
       globeGroup.add(orbitRing1);
 
-      const ring2Geo = new THREE.TorusGeometry(2.2, 0.004, 16, 120);
+      const ring2Geo = new THREE.TorusGeometry(2.2, 0.005, 16, 120);
       const ring2Mat = new THREE.MeshBasicMaterial({
         color: 0x34d399,
         transparent: true,
-        opacity: 0.35
+        opacity: 0.45
       });
       const orbitRing2 = new THREE.Mesh(ring2Geo, ring2Mat);
       orbitRing2.rotation.x = -Math.PI / 3;
       orbitRing2.rotation.y = -Math.PI / 6;
       globeGroup.add(orbitRing2);
 
-      // E. Atmosferik Arka Plan Tozları
-      const bgCount = 280;
+      // E. Atmosferik Uzay Tozları
+      const bgCount = 300;
       const bgGeo = new THREE.BufferGeometry();
       const bgPositions = new Float32Array(bgCount * 3);
 
@@ -1161,10 +1162,10 @@
 
       bgGeo.setAttribute('position', new THREE.BufferAttribute(bgPositions, 3));
       const bgMat = new THREE.PointsMaterial({
-        size: 0.016,
+        size: 0.018,
         color: 0x60a5fa,
         transparent: true,
-        opacity: 0.5
+        opacity: 0.6
       });
       const spaceDust = new THREE.Points(bgGeo, bgMat);
       globeGroup.add(spaceDust);
@@ -1181,7 +1182,7 @@
       };
       handleResponsiveLayout();
 
-      // GSAP ScrollTrigger ile Senkronize Derinleşme
+      // Pürüzsüz & Kesintisiz Orijinal GSAP Scroll Animasyonu
       gsap.timeline({
         scrollTrigger: {
           trigger: "body",
@@ -1201,7 +1202,7 @@
         ease: "none"
       }, 0);
 
-      // Fare İnteraksiyonu (Lerp)
+      // Yumuşak Fare Takibi (Lerp)
       let targetX = 0, targetY = 0;
       let currX = 0, currY = 0;
 
@@ -1210,29 +1211,23 @@
         targetY = (e.clientY / window.innerHeight - 0.5) * 0.4;
       }, { passive: true });
 
-      let isRunning = true;
-      document.addEventListener('visibilitychange', () => {
-        isRunning = !document.hidden;
-      });
-
       const clock = new THREE.Clock();
 
       function renderLoop() {
         requestAnimationFrame(renderLoop);
-        if (!isRunning) return;
 
         const dt = clock.getDelta();
 
-        // Dünya Kendi Ekseni Dönüşü
-        coreGlobe.rotation.y += 0.15 * dt;
-        gridGlobe.rotation.y += 0.15 * dt;
-        globeDots.rotation.y += 0.15 * dt;
+        // Kendi Ekseni Dönüşleri
+        coreGlobe.rotation.y += 0.16 * dt;
+        gridGlobe.rotation.y += 0.16 * dt;
+        globeDots.rotation.y += 0.16 * dt;
 
         orbitRing1.rotation.z += 0.25 * dt;
         orbitRing2.rotation.z -= 0.2 * dt;
         spaceDust.rotation.y -= 0.05 * dt;
 
-        // Yumuşak Sönümlü Fare Tepkisi
+        // Fare Lerp
         currX += (targetX - currX) * 0.06;
         currY += (targetY - currY) * 0.06;
 
@@ -1351,7 +1346,7 @@
       }
     });
 
-    // 5. Preloader Kapanış (Gelişmiş Sinematik Geçiş)
+    // 5. Preloader Kapanış
     window.addEventListener('load', () => {
       const preloader = document.getElementById('preloader');
       setTimeout(() => {
